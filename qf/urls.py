@@ -22,3 +22,4 @@ urlpatterns = [
     path('quimicofar/chat/<int:user_id>',quimico_chat, name='quimico_chat'),
     path('quimicofar/lista/espera',lista_pacientes_espera, name='lis_pac_esp'),
 ]
+

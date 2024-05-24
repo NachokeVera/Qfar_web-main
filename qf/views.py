@@ -164,6 +164,7 @@ def lista_pacientes_espera(request):
     return render(request, 'qf/lista_pac_espera.html',context)
 
 def quimico_chat(request, user_id):
+    #contiene a los usuarios del chat
     chat_user = []
     #aqui obtengo el token del usuario, en este caso deberia ser el quimico far
     token = request.session['tokenUser']
