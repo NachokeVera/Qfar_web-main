@@ -1,0 +1,41 @@
+{% block content %}
+<form action="{% url 'adminform' %}" method="POST" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    <div>
+        <div><b>Usuario:</b></div>
+        <div><input type="text" class="w-100" name="usuario" id="user"></div>
+    </div>
+    <div>
+        <div><b>Email:</b></div>
+        <div><input type="text" class="w-100" name="email" id="em"></div>
+    </div>
+    <div>
+        <div><b>Contraseña:</b></div>
+        <div><input type="password" class="w-100" name="contrasena" id="pass"></div>
+    </div>
+
+    <div>
+        <div><b>Universida:</b></div>
+        <div><input type="text" class="w-100" name="universidad" id="uni"></div>
+    </div>
+    <div>
+        <div><b>Titulo:</b></div>
+        <div><input type="text" class="w-100" name="titulo" id="titu"></div>
+    </div>
+    <div>
+        <div><b>Curriculum:</b></div>
+        <div><input type="text" class="w-100" name="curriculum" id="cv"></div>
+    </div>
+    <div>
+        <div><b>Numero de registro:</b></div>
+        <div><input type="text" class="w-100" name="numero_registro" id="numre"></div>
+    </div>
+    <div>
+        <div><b>horario disponible:</b></div>
+        <div><input type="text" class="w-100" name="hora_disponible" id="hordis"></div>
+    </div>
+
+    <button type="submit">Registrar Quimico Farmaceutico</button>
+</form>
+{% endblock %}

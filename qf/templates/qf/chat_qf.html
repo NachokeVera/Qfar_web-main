@@ -1,0 +1,196 @@
+{% extends 'qf/base.html' %}
+{% block content %}
+{% load static %}
+
+<h1>chat creado</h1>
+
+<div class="probando">
+    <form action="" id = "form_chat"> 
+        <label id = 'message' for="">mensaje:</label>   
+        <input type="text">
+        <button type="submit">enviar</button>
+    </form>
+    <table class="table table-success">
+        <tbody>
+            <tr>
+                <td style="width: 10px;">19:58</td>
+                <td style="width: 50px;">paciente1:</td>
+                <td>Hola mundo!!</td>
+            </tr>
+            <tr>
+                <td>20:00</td>
+                <td>quimicofar1:</td>
+                <td>Hola gerundio!!</td>
+            </tr>
+            <tr>
+                <td>20:05</td>
+                <td>paciente1:</td>
+                <td>no me digas gerundio!!</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<input type="hidden" id="token" value="{{ token }}" disabled>
+<input type="hidden" id="idQui" value="{{ user_id_connectycube }}" disabled> 
+
+
+<script src="https://cdn.jsdelivr.net/npm/connectycube@3.28.0/dist/connectycube.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const CREDENTIALS = {
+        appId: 7678,
+        authKey: "7Jz5LusMpV2Ugb2",
+        authSecret: "uZVVgk3kAVmMraV",
+    };
+
+    const DEFAULT_CONFIG = {
+        debug: { mode: 1 }
+    };
+
+    ConnectyCube.init(CREDENTIALS, DEFAULT_CONFIG);
+
+    var token = document.getElementById("token").value;
+    var userIdQui = document.getElementById("idQui").value;
+    var dialogId = null;
+
+    console.log(token);
+    console.log(userIdQui);
+
+    // Login to ConnectyCube
+    const userCredentials = {
+        login: userIdQui,
+        password: token // Adjust accordingly if you use another way to get user password/token
+    };
+
+    ConnectyCube.createSession(userCredentials).then((session) => {
+        console.log("Session created: ", session);
+        // Now that we have a session, we can retrieve the dialog or create one
+        retrieveOrCreateDialog(session.user_id);
+    }).catch((error) => {
+        console.error("Session creation error: ", error);
+    });
+
+    function retrieveOrCreateDialog(userId) {
+        // Retrieve existing dialogs
+        ConnectyCube.chat.dialog
+            .list()
+            .then((result) => {
+                console.log("Dialogs: ", result);
+                let dialog = result.items.find((d) => d.type === 3 && d.occupants_ids.includes(userId));
+                if (dialog) {
+                    console.log("Dialog found: ", dialog);
+                    dialogId = dialog._id
+                    loadMessages(dialog._id);
+                } else {
+                    // Create a new dialog if not found
+                    const params = {
+                        type: 3,
+                        occupants_ids: [userId]
+                    };
+                    ConnectyCube.chat.dialog.create(params).then((newDialog) => {
+                        console.log("Dialog created: ", newDialog);
+                        loadMessages(newDialog._id);
+                    }).catch((error) => {
+                        console.error("Dialog creation error: ", error);
+                    });
+                }
+            })
+            .catch((error) => {
+                console.error("Dialog retrieval error: ", error);
+            });
+    }
+
+    function loadMessages(dialogId) {
+        const params = { chat_dialog_id: dialogId, sort_desc: 'date_sent', limit: 50 };
+
+        ConnectyCube.chat.message
+            .list(params)
+            .then((result) => {
+                console.log("Messages: ", result);
+                updateChatTable(result.items);
+            })
+            .catch((error) => {
+                console.error("Message retrieval error: ", error);
+            });
+    }
+
+    function updateChatTable(messages) {
+        const chatTableBody = document.querySelector('#chatTableBody');
+        chatTableBody.innerHTML = ''; // Clear the table first
+        messages.forEach((message) => {
+            const row = document.createElement('tr');
+            const timeCell = document.createElement('td');
+            timeCell.style.width = '10px';
+            timeCell.textContent = new Date(message.date_sent * 1000).toLocaleTimeString();
+
+            const senderCell = document.createElement('td');
+            senderCell.style.width = '50px';
+            senderCell.textContent = message.sender_id;
+
+            const messageCell = document.createElement('td');
+            messageCell.textContent = message.message;
+
+            row.appendChild(timeCell);
+            row.appendChild(senderCell);
+            row.appendChild(messageCell);
+            chatTableBody.appendChild(row);
+        });
+    }
+
+    // Add event listener for the form submission
+    var formChat = document.getElementById("form_chat");
+    formChat.addEventListener("submit", function(event) {
+        event.preventDefault();
+        var messageInput = document.getElementById("messageInput");
+        var message = messageInput.value;
+        var dialogId = dialogId; // You need to set the dialogId from your dialog creation/retrieval process
+        if (message && dialogId) {
+            sendMessage(dialogId, message);
+        }
+    });
+
+    function sendMessage(dialogId, message) {
+        const params = {
+            chat_dialog_id: dialogId,
+            message: message,
+            save_to_history: 1
+        };
+
+        ConnectyCube.chat.message
+            .create(params)
+            .then((msg) => {
+                console.log("Message sent: ", msg);
+                addMessageToTable(msg);
+            })
+            .catch((error) => {
+                console.error("Message sending error: ", error);
+            });
+    }
+
+    function addMessageToTable(message) {
+        const chatTableBody = document.querySelector('#chatTableBody');
+        const row = document.createElement('tr');
+        const timeCell = document.createElement('td');
+        timeCell.style.width = '10px';
+        timeCell.textContent = new Date(message.date_sent * 1000).toLocaleTimeString();
+
+        const senderCell = document.createElement('td');
+        senderCell.style.width = '50px';
+        senderCell.textContent = message.sender_id;
+
+        const messageCell = document.createElement('td');
+        messageCell.textContent = message.message;
+
+        row.appendChild(timeCell);
+        row.appendChild(senderCell);
+        row.appendChild(messageCell);
+        chatTableBody.appendChild(row);
+    }
+});
+
+</script>
+    
+
+{% endblock %}

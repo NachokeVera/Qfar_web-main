@@ -1,0 +1,145 @@
+{% extends 'admin/base.html' %}
+{% block contenido %}
+
+<div>
+    Pacientes
+</div>
+<div class="padingbonito">
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active " id="nav-ha-tab" data-bs-toggle="tab" data-bs-target="#nav-ha" type="button" role="tab" aria-controls="nav-ha" aria-selected="false">Usuarios del sistema</button>
+        
+        <button class="nav-link" id="nav-hi-tab" data-bs-toggle="tab" data-bs-target="#nav-hi" type="button" role="tab" aria-controls="nav-hi" aria-selected="false">Resumenes</button>
+        <button class="nav-link" id="nav-hi-nuevo-tab" data-bs-toggle="tab" data-bs-target="#nav-hi-nuevo" type="button" role="tab" aria-controls="nav-hi-nuevo" aria-selected="false">Informes</button>
+    </div>
+<!--crear cuenta de paciente-->
+<div class="tab-content">
+    <div class="tab-pane fade " id="nav-ue" role="tabpanel" aria-labelledby="nav-ue-tab">
+    
+    <div class="col-lg-8 col-12 p-3 mb-3" style="display: flex; align-items: center;">
+    <h3>Usuarios en espera usuario:{{datos}} </h3>&nbsp;&nbsp;<button type="button" class="btn btn-danger btn-sm btn-anular"  onclick="refreshPage()">Actualizar</button>
+    </div>
+    
+     <div class="col-lg-4 col-12 p-2 mb-3">
+      <div class="select">
+      <select id="select_areas">
+          <option value="">Seleccione área médica</option>
+        
+      </select>
+      <div class="select_arrow">
+      </div>
+  </div>
+</div> 
+    
+    <div id="no-more-tables" >
+        
+        <div class="tbl-container bdr">
+            
+          <div id="list1">
+          <table class="table table-hover">
+              <thead>
+                  <tr>
+                      <th width="20%"><span class="pl-t">Nombre</span></th>
+                      <th width="20%">Enfermedades</th>
+                      <th width="20%">Motivo de consulta</th>
+                      <th width="20%">Áreas médicas</th>
+                      <th width="20%">Inicio de conexión</th>
+                  </tr>
+              </thead>
+              <tbody>
+                {% for item in context %}
+                <tr>
+                    <td>{{ item}}</td>
+                    <td>{{ item }}</td>
+                    <td>{{ item }}</td>
+                    <td>{{ item }}</td>
+                    <td>{{ item }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>        
+          </table>
+          </div>
+            
+
+        </div>
+        
+    </div>
+    
+  </div>
+  <!--pacientes creados-->
+  <div class="tab-pane fade show active" id="nav-ha" role="tabpanel" aria-labelledby="nav-ha-tab">
+    
+    <div class="col-lg-3 col-12 p-3 mb-3">
+        <h3>Listado de Usuarios</h2>
+        </div>
+        <div class="col-lg-2 col-12 p-2 mb-3">
+          <div class="caja-buscar-container">
+    <input type="text" class="caja-buscar" placeholder="Buscar por rut" id="input_qf_rut">
+  
+    
+  </div>
+   </div>
+         <div class="col-lg-2 col-12 p-2 mb-3">
+          <div class="caja-buscar-container">
+    <input type="text" class="caja-buscar" placeholder="Buscar por nombre" id="input_qf_nombre">
+  
+    
+  </div>
+   </div>
+         <div class="col-lg-2 col-12 p-2 mb-3">
+          <div class="caja-buscar-container">
+    <input type="text" class="caja-buscar" placeholder="Buscar por registro" id="input_qf_registro">
+  
+    
+  </div>
+   </div>
+        
+         <div class="col-lg-3 col-12 p-2 mb-3">
+             <div class="col-6">
+                      <button ><a href="{% url 'nuevo_paciente'%}" >Agregar qf</a></button>
+             </div>
+             <div class="col-6">
+                      <button type="button" class="btn-eliminar" onclick="javascript: deshabilitar()">Deshabilitar</button>
+             </div>
+  
+   </div> 
+    
+    <div id="no-more-tables" >
+        
+        <div class="tbl-container bdr">
+            
+          <div id="list1">
+          <table class="table table-hover">
+              <thead>
+                  <tr>
+                      <th width="25%"><span class="pl-t">Nombre</span></th>
+                      <th width="25%">conexiónes</th>
+                      <th width="25%">Ultimo QF que lo atendio</th>
+                      <th width="25%">Ultima conexion </th>
+                     
+                  </tr>
+              </thead>
+              
+              <tbody>
+                {% for i in UsuarioSistema %}
+                <tr >
+                    <td >{{i.user.username}}</td>
+                    <td>{{i.peso}}</td>
+                    <td ></td>
+                    <td></td>
+                 
+                </tr>
+                {% endfor %}
+
+              </tbody>        
+          </table>
+          </div>
+            
+
+        </div>
+        
+    </div>
+    
+  </div>
+  
+</div>
+{% endblock %}

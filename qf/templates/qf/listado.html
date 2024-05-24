@@ -1,0 +1,1047 @@
+{% extends 'qf/base.html' %}
+{% block content %}
+    
+ <!--usuarios en espera-->
+      <div class="tab-pane fade show active" id="nav-ue" role="tabpanel" aria-labelledby="nav-ue-tab" tabindex="0">
+    
+        <div class="col-lg-8 col-12 p-3 mb-3" style="display: flex; align-items: center;">
+        <h3>Usuarios en espera usuario:{{datos}} </h3>&nbsp;&nbsp;<button type="button" class="btn btn-danger btn-sm btn-anular"  onclick="refreshPage()">Actualizar</button>
+        </div>
+        
+         <div class="col-lg-4 col-12 p-2 mb-3">
+          <div class="select">
+          <select id="select_areas">
+              <option value="">Seleccione área médica</option>
+            
+          </select>
+          <div class="select_arrow">
+          </div>
+      </div>
+   </div> 
+        
+        <div id="no-more-tables" >
+            
+            <div class="tbl-container bdr">
+                
+              <div id="list1">
+              <table class="table table-hover">
+                  <thead>
+                      <tr>
+                          <th width="20%"><span class="pl-t">Nombre</span></th>
+                          <th width="20%">Enfermedades</th>
+                          <th width="20%">Motivo de consulta</th>
+                          <th width="20%">Áreas médicas</th>
+                          <th width="20%">Inicio de conexión</th>
+                      </tr>
+                  </thead>
+                 
+                     
+                                 
+              </table>
+              </div>
+                
+  
+            </div>
+            
+        </div>
+        
+      </div>
+
+ <!--historial de atenciones-->
+       <div class="tab-pane fade" id="nav-ha" role="tabpanel" aria-labelledby="nav-ha-tab" tabindex="0">
+    
+        <div class="col-lg-4 col-12 p-3 mb-3">
+        <h3>Historial de atenciones</h3>
+        </div>
+        
+        <div class="col-lg-4 col-12 p-2 mb-3">
+          <div class="select">
+        
+    <select id="select_periodo">
+      <option value="">Seleccione período</option>
+ 
+  </select>
+  
+  
+  
+          <div class="select_arrow">
+          </div>
+      </div>
+   </div>
+        
+        <div class="col-lg-4 col-12 p-2 mb-3"> 
+           <div class="select">
+          <select id="select_estado">
+              <option value="">Seleccione estado</option>
+             
+          </select>
+          <div class="select_arrow">
+          </div>
+      </div>  
+  </div>
+        
+  <div id="no-more-tables">
+            
+            <div class="tbl-container bdr">
+                
+            <div id="list2">
+              <table class="table table-hover">
+                  <thead>
+                      <tr>
+                          <th width="25%"><span class="pl-t">Nombre</span></th>
+                          <th width="25%">Ciudad</th>
+                          <th width="25%">Última conversación</th>
+                          <th width="25%">Estado</th>
+                      </tr>
+                  </thead>
+                     
+                     <tr>
+                          <td data-title="Nombre:"><span class="pl-t">Simón Vega</span></td>
+                          <td data-title="Ciudad:">Viña del Mar</td>
+                          <td data-title="Última conversación:">27/10/2022 13:58</td>
+                          <td data-title="Estado:">Derivado a especialista</td>
+                </tr>
+                                 
+              </table>
+                </div>
+            </div>
+            
+        </div>
+      
+      </div>
+
+
+ <!--formulario de educacion-->
+ <div class="tab-pane fade" id="nav-hi" role="tabpanel" aria-labelledby="nav-hi-tab" href="#item4" tabindex="0">
+    <div class="p-3 mb-3">
+      <form id="miFormulario" method="post" action="procesar_formulario.php" accept-charset="UTF-8" data-operacion="registro">
+        <input type="hidden" name="id">
+          <h3 class="mb-5">Formulario de Educación</h3>
+        <div class="row">
+          <div class="col-12 col-lg-2 mb-2">
+            <input type="text" class="form-control" name="rut" placeholder="RUT:" aria-label="RUT">
+          </div>
+          <div class="col-12 col-lg-4 mb-2">
+            <input type="text" class="form-control" name="nombre" placeholder="Nombre Completo:" aria-label="Nombre Completo">
+          </div>
+            <div class="col-12 col-lg-1 mb-2">
+            <input type="number" class="form-control" name="edad" placeholder="Edad" aria-label="Edad">
+          </div>
+          <div class="col-12 col-lg-1 mb-2">
+            <input type="text" class="form-control" name="sexo" placeholder="Sexo" aria-label="Sexo">
+          </div>
+          <div class="col-12 col-lg-4 mb-2">
+            <input type="text" class="form-control" name="direccion" placeholder="Dirección" aria-label="Dirección">
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-4">
+                <p style="font-size:12px;margin-bottom:5px;">¿Realizas esta solicitud con asistencia de un cuidador, familiar o auxiliar?</p>
+          <label class="visually-hidden" for="autoSizingSelect"></label>
+          <select class="form-select" id="autoSizingSelect" name="asistencia">
+            <option selected>Seleccione</option>
+            <option value="1">SI</option>
+            <option value="2">NO</option>
+          </select>
+            </div>
+             <div class="col-12 col-lg-4">
+                 <p style="font-size:12px;margin-bottom:5px;">Teléfono móvil</p>
+            <input type="tel" class="form-control" name="telefono" placeholder="(9) Teléfono" aria-label="Teléfono">
+          </div>
+          <div class="col-12 col-lg-4">
+              <p style="font-size:12px;margin-bottom:5px;">Correo electrónico</p>
+            <input type="email" class="form-control" name="correo" placeholder="Correo" aria-label="Correo">
+          </div>
+        </div>
+          
+          <div class="col-lg-6 mt-4">
+          
+          <div class="row">
+        <b>¿Por cuál medio prefieres que te contactemos?</b>
+        <div class="row ms-2 mt-2 mb-3">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="contacto_preferido" id="inlineRadio1" value="Cita presencial">
+          <label class="form-check-label" for="inlineRadio1">Cita presencial</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="contacto_preferido" id="inlineRadio2" value="Llamada telefónica">
+          <label class="form-check-label" for="inlineRadio2">Llamada telefónica</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="contacto_preferido" id="inlineRadio3" value="WhatsApp">
+          <label class="form-check-label" for="inlineRadio3">WhatsApp</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="contacto_preferido" id="inlineRadio4" value="Correo electrónico">
+          <label class="form-check-label" for="inlineRadio4">Correo electrónico</label>
+        </div>
+         </div>
+          </div>
+              
+        <div class="row">
+        <b class="mb-2">¿Eres profesional de la salud?</b>
+        <div class="form-check form-check-inline ms-3">
+          <input class="form-check-input" type="checkbox" name="profesional_salud" id="inlineCheckbox1" value="SI">
+          <label class="form-check-label" for="inlineCheckbox1">SI</label>
+        </div>
+        <div class="form-check form-check-inline ms-3">
+          <input class="form-check-input" type="checkbox" name="profesional_salud" id="inlineCheckbox2" value="NO">
+          <label class="form-check-label" for="inlineCheckbox2">NO</label>
+        </div>
+            <div class="form-check form-check-inline ms-0">
+         <p style="font-size:14px;margin-bottom:5px;">¿Cuál es tu profesión?</p>
+          <input type="text" name="profesion">
+            </div>
+              </div>
+              
+              <div class="row mt-3">
+        <b class="mb-2">¿Eres líder de un equipo de salud?</b>
+        <div class="form-check form-check-inline ms-3">
+          <input class="form-check-input" type="checkbox" name="lider_equipo_salud" id="inlineCheckbox1" value="SI">
+          <label class="form-check-label" for="inlineCheckbox1">SI</label>
+        </div>
+        <div class="form-check form-check-inline ms-3">
+          <input class="form-check-input" type="checkbox" name="lider_equipo_salud" id="inlineCheckbox2" value="NO">
+          <label class="form-check-label" for="inlineCheckbox2">NO</label>
+        </div>
+            <div class="form-check form-check-inline ms-0">
+         <p style="font-size:14px;margin-bottom:5px;">¿A qué grupo diriges?</p>
+          <input type="text" name="grupo_dirigido">
+            </div>
+              </div>
+              
+              <div class="row mt-3">
+        <b class="mb-2">¿Eres líder de un grupo comunitario?</b>
+        <div class="form-check form-check-inline ms-3">
+          <input class="form-check-input" type="checkbox" name="lider_grupo_comunitario" id="inlineCheckbox1" value="SI">
+          <label class="form-check-label" for="inlineCheckbox1">SI</label>
+        </div>
+        <div class="form-check form-check-inline ms-3">
+          <input class="form-check-input" type="checkbox" name="lider_grupo_comunitario" id="inlineCheckbox2" value="NO">
+          <label class="form-check-label" for="inlineCheckbox2">NO</label>
+        </div>
+            <div class="form-check form-check-inline ms-0">
+         <p style="font-size:14px;margin-bottom:5px;">¿Cuál es tu grupo?</p>
+          <input type="text" name="nombre_grupo_comunitario">
+            </div>
+              </div>
+              
+         <div class="row mt-3">
+        <b class="mb-2">¿Perteneces a un centro de adulto mayor?</b>
+        <div class="form-check form-check-inline ms-3">
+          <input class="form-check-input" type="checkbox" name="perteneces_centro_adulto_mayor" id="inlineCheckbox1" value="SI">
+          <label class="form-check-label" for="inlineCheckbox1">SI</label>
+        </div>
+        <div class="form-check form-check-inline ms-3">
+          <input class="form-check-input" type="checkbox" name="perteneces_centro_adulto_mayor" id="inlineCheckbox2" value="NO">
+          <label class="form-check-label" for="inlineCheckbox2">NO</label>
+        </div>
+            <div class="form-check form-check-inline ms-0">
+         <p style="font-size:14px;margin-bottom:5px;">¿Cómo se llama?</p>
+          <input type="text" name="nombre_centro_adulto_mayor">
+            </div>
+              </div>
+              
+             </div>         
+              
+          <div class="col-lg-6 mt-4">  
+              
+              <div class="row">
+        <b class="mb-2">¿Eres cuidador de una o más personas enfermas o con discapacidad?</b>
+        <div class="form-check form-check-inline ms-3">
+          <input class="form-check-input" type="checkbox" name="cuidador_personas_enfermas" id="inlineCheckbox1" value="SI">
+          <label class="form-check-label" for="inlineCheckbox1">SI</label>
+        </div>
+        <div class="form-check form-check-inline ms-3">
+          <input class="form-check-input" type="checkbox" name="cuidador_personas_enfermas" id="inlineCheckbox2" value="NO">
+          <label class="form-check-label" for="inlineCheckbox2">NO</label>
+        </div>
+              </div>
+              
+        <div class="row mt-3">
+        <b class="mb-2">¿Eres solo una persona?</b>
+        <div class="form-check form-check-inline ms-3">
+          <input class="form-check-input" type="checkbox" name="solo_una_persona" id="inlineCheckbox1" value="SI">
+          <label class="form-check-label" for="inlineCheckbox1">SI</label>
+        </div>
+        <div class="form-check form-check-inline ms-3">
+          <input class="form-check-input" type="checkbox" name="solo_una_persona" id="inlineCheckbox2" value="NO">
+          <label class="form-check-label" for="inlineCheckbox2">NO</label>
+        </div>
+        </div>
+              
+        <div class="row mt-3">
+        <b class="mb-2">¿Tienes disposición de participar en actividades grupales?</b>
+        <div class="form-check form-check-inline ms-3">
+          <input class="form-check-input" type="checkbox" name="participar_actividades_grupales" id="inlineCheckbox1" value="SI">
+          <label class="form-check-label" for="inlineCheckbox1">SI</label>
+        </div>
+        <div class="form-check form-check-inline ms-3">
+          <input class="form-check-input" type="checkbox" name="participar_actividades_grupales" id="inlineCheckbox2" value="NO">
+          <label class="form-check-label" for="inlineCheckbox2">NO</label>
+        </div>
+            <div class="row ms-2 mt-2 mb-2">
+            <input type="text" class="form-control" name="temas_a_tratar" placeholder="¿Qué temas te gustaría tratar?" aria-label="¿Qué temas te gustaría tratar?">
+            </div>
+            <div class="row ms-2 mb-2">
+            <input type="text" class="form-control" name="disponibilidad_tiempo" placeholder="¿Qué disponibilidad de tiempo tienes?" aria-label="¿Qué disponibilidad de tiempo tienes?">
+            </div>
+        </div>
+              
+        <div class="row mt-3">
+        <b class="mb-2">¿Qué formato necesitas?</b>
+        <div class="form-check form-check-inline ms-3">
+          <input class="form-check-input" type="checkbox" name="formato_necesario[]" id="inlineCheckbox1" value="Presencial" required>
+          <label class="form-check-label" for="inlineCheckbox1">Presencial</label>
+        </div>
+        <div class="form-check form-check-inline ms-3">
+          <input class="form-check-input" type="checkbox" name="formato_necesario[]" id="inlineCheckbox2" value="Online" required>
+          <label class="form-check-label" for="inlineCheckbox2">Online</label>
+        </div>
+            <div class="row ms-2 mt-2 mb-2">
+            <input type="text" class="form-control" name="cantidad_personas" placeholder="¿Cuántas personas participarán?" aria-label="¿Cuántas personas participarán?">
+            </div>
+        </div>
+              
+        
+
+        <div class="row mt-4">
+            <b>¿Servicios Propuestos?</b>
+          <div class="form-check">
+            <input type="checkbox" name="servicios_propuestos" value="4" required>
+            <label class="form-check-label" for="edu">Educación</label>
+          </div>
+            
+            <div class="row mt-4">
+          <div class="col">
+            <button type="submit" class="btn btn-primary" id="enviarFormulario">Insertar</button>
+
+          </div>
+          <div class="col">
+            <button type="button" class="btn btn-danger" id="cancelarModificacion" style="display:none;">Cancelar Modificación</button>
+          </div>
+        </div>
+            
+        </div>
+        
+          </div>
+              
+      </form>
+    </div>
+  </div>
+
+ <!--formulario de antecedentes-->
+  <div class="tab-pane fade" id="nav-hi-nuevo" role="tabpanel" aria-labelledby="nav-hi-nuevo-tab">
+    <div class="col-12 p-3 mb-3">
+      <form name="miFormularioAntecedentes" method="post" action="procesar_antecedentes.php" accept-charset="UTF-8" data-operacion="registro">
+        <input type="hidden" name="id">
+        <h3 class="mb-5"> Formulario Antecedentes</h3>
+        <div class="row">
+          <div class="col-12 col-lg-2">
+            <input type="text" class="form-control" name="rut" placeholder="RUT" aria-label="Nombre">
+          </div>
+            <div class="col-12 col-lg-6">
+            <input type="text" class="form-control" name="nombre" placeholder="Nombre Completo" aria-label="Nombre">
+          </div>
+            <div class="col-12 col-lg-1">
+            <input type="number" name="edad" class="form-control" placeholder="Edad" aria-label="Edad">
+          </div>
+            <div class="col-12 col-lg-2">
+             <input type="text" class="form-control" name="sexo" placeholder="Sexo" aria-label="Sexo">
+          </div>
+            <div class="col-12 col-lg-1">
+             <input type="number" name="peso" class="form-control" placeholder="Peso" aria-label="Peso">
+          </div>
+        </div>
+          
+          <h5 class="mt-3">Formulario médicos</h5>
+          
+          <div class="row">
+            <div class="col-12 col-lg-4">
+                <p style="font-size:12px;margin-bottom:5px;">¿Realizas esta solicitud con asistencia de un cuidador, familiar o auxiliar?</p>
+          <select class="form-select" name="asistencia_cuidador">
+            <option selected>Seleccione</option>
+            <option value="1">SI</option>
+            <option value="2">NO</option>
+          </select>
+            </div>
+             <div class="col-12 col-lg-4">
+                 <p style="font-size:12px;margin-bottom:5px;">Teléfono móvil</p>
+            <input type="tel" name="telefono" class="form-control" placeholder="(9)Telefono" aria-label="Telefono">
+          </div>
+          <div class="col-12 col-lg-4">
+              <p style="font-size:12px;margin-bottom:5px;">Correo electrónico</p>
+            <input type="email" name="email" class="form-control" placeholder="Correo" aria-label="Correo">
+          </div>
+        </div>
+          
+          <div class="row col-12 mt-5">
+              
+              <div class="col-lg-6">
+                  
+                    <b>¿Por cuál medio prefieres que te contactemos?</b>
+        <div class="row ms-2 mt-2 mb-3">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="contacto_preferido" id="inlineRadio1" value="Cita presencial">
+          <label class="form-check-label" for="inlineRadio1">Cita presencial</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="contacto_preferido" id="inlineRadio2" value="Llamada telefónica">
+          <label class="form-check-label" for="inlineRadio2">Llamada telefónica</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="contacto_preferido" id="inlineRadio3" value="WhatsApp">
+          <label class="form-check-label" for="inlineRadio3">WhatsApp</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="contacto_preferido" id="inlineRadio4" value="Correo electrónico">
+          <label class="form-check-label" for="inlineRadio4">Correo electrónico</label>
+        </div>
+         </div>
+            
+            
+        <b class="mb-2">¿Qué formato necesitas?</b>
+        <div class="row ms-2 mb-3">
+        <div class="form-check form-check-inline ms-3">
+          <input class="form-check-input" type="checkbox" name="formato_necesario[]" id="inlineCheckbox1" value="Presencial" required>
+          <label class="form-check-label" for="inlineCheckbox1">Presencial</label>
+        </div>
+        <div class="form-check form-check-inline ms-3">
+          <input class="form-check-input" type="checkbox" name="formato_necesario[]" id="inlineCheckbox2" value="Online" required>
+          <label class="form-check-label" for="inlineCheckbox2">Online</label>
+        </div>
+        <div class="row ms-2 mt-2 mb-2">
+            <input type="text" class="form-control w-50" name="cantidad_personas" placeholder="¿Cuántas personas participarán?" aria-label="¿Cuántas personas participarán?">
+            </div>
+         </div>
+
+          <h5 class="mt-2">Antecedentes de Salud General (marcar con ✓)</h5>
+            
+          <div class="input-container mb-2">
+            <label for="nombre"><strong>Tabaco:</strong></label><br>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="tabaco_option1" name='diagnostico[0][nombre]' value="option1">
+              <label class="form-check-label" for="tabaco_option1"></label>Sí
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="tabaco_option2" name='diagnostico[1][nombre]' value="option2">
+              <label class="form-check-label" for="tabaco_option2"></label>No
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="tabaco_option3" name='diagnostico[2][nombre]' value="option2">
+              <label class="form-check-label" for="tabaco_option3"></label>A veces
+            </div>
+          </div>
+            
+          <div class="input-container mb-2">
+            <label for="nombre"><strong>Alcohol:</strong></label><br>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="tabaco_option4" name='diagnostico[3][nombre]' value="option1">
+              <label class="form-check-label" for="tabaco_option4"></label> Sí
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="tabaco_option5" name='diagnostico[4][nombre]' value="option2">
+              <label class="form-check-label" for="tabaco_option6"></label> No
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="tabaco_option6" name='diagnostico[5][nombre]' value="option2">
+              <label class="form-check-label" for="tabaco_option7"></label> A veces
+            </div>
+          </div>
+            
+          <div class="input-container mb-2">
+            <label for="nombre"><strong>Otras drogas:</strong></label><br>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="tabaco_option7" name='diagnostico[6][nombre]' value="option1">
+              <label class="form-check-label" for="tabaco_option7"></label> Sí
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="tabaco_option8" name='diagnostico[7][nombre]' value="option2">
+              <label class="form-check-label" for="tabaco_option8"></label> No
+            </div>
+            <div class="row">
+                    <input class="form-control w-50 ms-2" type="text" id="default-input" placeholder="Cuales drogas" aria-label="default input example">  
+                </div>
+          </div>
+            
+            <div class="input-container mb-2">
+            <label for="nombre"><strong>Alergias:</strong></label><br>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="tabaco_option10" name='diagnostico[9][nombre]' value="option1">
+              <label class="form-check-label" for="tabaco_option10"></label> Sí
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name='diagnostico[10][nombre]' value="option2">
+              <label class="form-check-label" for="inlineCheckbox2"></label> No
+            </div>
+            <div class="row">
+                    <input class="form-control w-50 ms-2" type="text" id="default-input" placeholder="Cuales alergias" name='diagnostico[12][nombre]' aria-label="default input example">
+                </div>
+          </div>
+            
+            <div class="input-container mb-2">
+            <label for="nombre"><strong>Cirugias:</strong></label><br>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name='diagnostico[13][nombre]' value="option1">
+              <label class="form-check-label" for="inlineCheckbox1"></label> Sí
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name='diagnostico[14][nombre]' value="option2">
+              <label class="form-check-label" for="inlineCheckbox2"></label> No
+            </div>
+            <div class="row">
+                    <input class="form-control w-50 ms-2" type="text" id="default-input" placeholder="Cuales cirugias" name='diagnostico[15][nombre]' aria-label="default input example">
+                </div>
+          </div>
+            
+            <div class="input-container mb-2">
+            <label for="nombre"><strong>Exámenes de contraste:</strong></label><br>
+            <div class="form-check form-check-inline">
+               <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name='diagnostico[16][nombre]' value="option1">
+              <label class="form-check-label" for="inlineCheckbox1"></label> Sí
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name='diagnostico[17][nombre]' value="option2">
+              <label class="form-check-label" for="inlineCheckbox2"></label> No
+            </div>
+            <div class="row">
+                    <input class="form-control w-50 ms-2" type="text" id="default-input" placeholder="Cuales exámenes" name='diagnostico[18][nombre]' aria-label="default input example">
+                </div>
+          </div>
+              
+        <div class="input-container mb-2">
+            <label for="nombre"><strong>¿Antecedentes familiares de alguna enfermedad?</strong></label><br>
+            <div class="form-check form-check-inline">
+               <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+              <label class="form-check-label" for="inlineCheckbox1"> Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+              <label class="form-check-label" for="inlineCheckbox2"> No</label>
+            </div>
+          </div>
+              
+        <div class="input-container mb-2">
+            <label for="nombre"><strong>¿Antecedentes médicos recientes?</strong></label><br>
+            <div class="form-check form-check-inline">
+               <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+              <label class="form-check-label" for="inlineCheckbox1"> Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+              <label class="form-check-label" for="inlineCheckbox2"> No</label>
+            </div>
+          </div>
+                  
+        <div>
+            
+          <strong class="d-block mb-2">¿Tienes alguna de estas enfermedades diagnosticadas por un medico hace mas de 3 meses?(marcar con ✓)</strong>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+            <label class="form-check-label" for="inlineCheckbox1">Diabetes tipo 2</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+            <label class="form-check-label" for="inlineCheckbox2">Epilepsia</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option1">
+            <label class="form-check-label" for="inlineCheckbox3">Hipertension</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option2">
+            <label class="form-check-label" for="inlineCheckbox4">Parkinson</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="option1">
+            <label class="form-check-label" for="inlineCheckbox5">Depresion</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="option2">
+            <label class="form-check-label" for="inlineCheckbox6">Infeccion recurrente</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="option1">
+            <label class="form-check-label" for="inlineCheckbox7">Trastornos de sueño</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox8" value="option2">
+            <label class="form-check-label" for="inlineCheckbox8">Enfermedad respiratoria</label>
+          </div>
+         <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox9" value="option1">
+            <label class="form-check-label" for="inlineCheckbox9">Displidemias/colesterol alto</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox10" value="option2">
+            <label class="form-check-label" for="inlineCheckbox10">Higado graso no alcohol</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox11" value="option1">
+            <label class="form-check-label" for="inlineCheckbox11">Arritmias</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox12" value="option2">
+            <label class="form-check-label" for="inlineCheckbox12">Apnea de sueño</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox13" value="option1">
+            <label class="form-check-label" for="inlineCheckbox13">Insuficiencia renal</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox14" value="option2">
+            <label class="form-check-label" for="inlineCheckbox14">Anemia</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox15" value="option1">
+            <label class="form-check-label" for="inlineCheckbox15">Insuficiencia hepatica</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox17" value="option2">
+            <label class="form-check-label" for="inlineCheckbox17">Insuficiencia cardiaca</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox18" value="option1">
+            <label class="form-check-label" for="inlineCheckbox18">Inmuno deficiencia</label>
+          </div>
+        <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox16" value="option2">
+            <label class="form-check-label" for="inlineCheckbox16">Otra:</label> <input type="text">
+          </div>
+        </div>
+                  
+              </div>
+              
+              <div class="col-lg-6">      
+        
+        <div class="mb-3">
+            <strong class="d-block mb-2">¿Cual/es de estos sintomas te aprobleman actualmente?(marcar con ✓)</strong>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+            <label class="form-check-label" for="inlineCheckbox1">Calambres</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+            <label class="form-check-label" for="inlineCheckbox2">Dolores Menstruales</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option1">
+            <label class="form-check-label" for="inlineCheckbox3">Dolor Muscular</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option2">
+            <label class="form-check-label" for="inlineCheckbox4">Acidez</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="option1">
+            <label class="form-check-label" for="inlineCheckbox5">Dolor Estomacal</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="option2">
+            <label class="form-check-label" for="inlineCheckbox6">Sudoracíon excesiva</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="option1">
+            <label class="form-check-label" for="inlineCheckbox7">Incontinencia</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox8" value="option2">
+            <label class="form-check-label" for="inlineCheckbox8">Dificultad para respirar</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox9" value="option1">
+            <label class="form-check-label" for="inlineCheckbox9">Colitis(diarrea)</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox10" value="option2">
+            <label class="form-check-label" for="inlineCheckbox10">Vomitos</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox11" value="option2">
+            <label class="form-check-label" for="inlineCheckbox11">Fiebre</label>
+          </div>
+        </div>
+                  
+                  <div class="input-container mb-2">
+            <label for="nombre"><strong>¿Haz tenido que visitar a un especialista en el ultimo mes?</strong></label><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                <label class="form-check-label" for="inlineCheckbox1">Si</label>
+              </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                <label class="form-check-label" for="inlineCheckbox2">No</label>
+              </div>
+            <div class="row">
+                    <input class="form-control w-50 ms-2" type="text" id="default-input" placeholder="A quién?" aria-label="default input example">  
+                </div>
+          </div>
+                  
+              <div><br>
+                  <h5 class="mt-2">Antecedentes Farmacéuticos (marcar con ✓)</h5>
+          <p>¿Cual/es de estos Medicamentos fueron recetados por un médico / dentista / otro profesional de la
+            salud?
+          </p>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+            <label class="form-check-label" for="inlineCheckbox1">Anticoagulantes</label>
+          </div>
+
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+            <label class="form-check-label" for="inlineCheckbox2">Metformina</label>
+          </div> <br>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option1">
+            <label class="form-check-label" for="inlineCheckbox3">Antiácidos</label>
+          </div>
+
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option2">
+            <label class="form-check-label" for="inlineCheckbox4">Cremas/unguentos para piel</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="option1">
+            <label class="form-check-label" for="inlineCheckbox5">Gotas/ungüentos para los ojos</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="option2">
+            <label class="form-check-label" for="inlineCheckbox6">Antihipertensivos</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="option1">
+            <label class="form-check-label" for="inlineCheckbox7">Parches hormonales</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox8" value="option2">
+            <label class="form-check-label" for="inlineCheckbox8">Parches analgésicos</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox9" value="option1">
+            <label class="form-check-label" for="inlineCheckbox9">Corticoides inhalados</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox10" value="option2">
+            <label class="form-check-label" for="inlineCheckbox10">Analgesicos</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox11" value="option2">
+            <label class="form-check-label" for="inlineCheckbox11">Antibioticos</label>
+          </div>
+          <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox11" value="option2">
+            <label class="form-check-label" for="inlineCheckbox11">Insulina</label>
+          </div>
+        <div class="w-100 form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="option1">
+            <label class="form-check-label" for="inlineCheckbox7">Otro:</label> <input type="text">
+          </div>
+        </div>
+              
+          </div>
+              
+          </div>
+          
+          <div class="row col-12 mt-4">
+              
+        <h4> Tabla de antecedentes</h4>
+        <div>
+          <b>Escribe el nombre comercial o del principio activo de los medicamentos que te han recetado
+            (prescritos)</b>
+          <br><br>
+          <table>
+            <tr>
+              <th>Nombre</th>
+              <th>Cuanto toma (mg)</th>
+              <th>Cada cuanto</th>
+              <th>Por cuanto tiempo</th>
+              <th>Para qué</th>
+              <th>Última vez que lo tomó</th>
+            </tr>
+            <tr>
+              <td><input type="text" name="nombre_antecedente[0][nombre]"></td>
+              <td><input type="text" name="cuanto_antecedente[0][nombre]"></td>
+              <td><input type="text" name="cada_antecedente[0][nombre]"></td>
+              <td><input type="text" name="tiempo_antecedente[0][nombre]"></td>
+              <td><input type="text" name="para_que_antecedente[0][nombre]"></td>
+              <td><input type="text" name="ultima_vez_antecedente[0][nombre]"></td>
+            </tr>
+            <tr>
+              <td><input type="text" name="nombre_antecedente[1][nombre]"></td>
+              <td><input type="text" name="cuanto_antecedente[1][nombre]"></td>
+              <td><input type="text" name="cada_antecedente[1][nombre]"></td>
+              <td><input type="text" name="tiempo_antecedente[1][nombre]"></td>
+              <td><input type="text" name="para_que_antecedente[1][nombre]"></td>
+              <td><input type="text" name="ultima_vez_antecedente[1][nombre]"></td>
+            </tr>
+            <tr>
+              <td><input type="text" name="nombre_antecedente[2][nombre]"></td>
+              <td><input type="text" name="cuanto_antecedente[2][nombre]"></td>
+              <td><input type="text" name="cada_antecedente[2][nombre]"></td>
+              <td><input type="text" name="tiempo_antecedente[2][nombre]"></td>
+              <td><input type="text" name="para_que_antecedente[2][nombre]"></td>
+              <td><input type="text" name="ultima_vez_antecedente[2][nombre]"></td>
+            </tr>
+            <tr>
+              <td><input type="text" name="nombre_antecedente[3][nombre]"></td>
+              <td><input type="text" name="cuanto_antecedente[3][nombre]"></td>
+              <td><input type="text" name="cada_antecedente[3][nombre]"></td>
+              <td><input type="text" name="tiempo_antecedente[3][nombre]"></td>
+              <td><input type="text" name="para_que_antecedente[3][nombre]"></td>
+              <td><input type="text" name="ultima_vez_antecedente[3][nombre]"></td>
+            </tr>
+
+          </table><br>
+        </div>
+        <div>
+          <b>Medicamentos naturales o suplementos (Hierbas, Vitaminas, Homeopatía, Fitoterapia, etc.)</b>
+          <br><br>
+          <table>
+            <tr>
+              <th>Nombre</th>
+              <th>Cuanto toma (mg)</th>
+              <th>Cada cuanto</th>
+              <th>Por cuanto tiempo</th>
+              <th>Para qué</th>
+              <th>Última vez que lo tomó</th>
+            </tr>
+            <tr>
+              <td><input type="text" name="medicamentos[0][nombre]"></td>
+              <td><input type="text" name="cuanto[0][nombre]"></td>
+              <td><input type="text" name="cada[0][nombre]"></td>
+              <td><input type="text" name="tiempo[0][nombre]"></td>
+              <td><input type="text" name="para_que[0][nombre]"></td>
+              <td><input type="text" name="ultima_vez[0][nombre]"></td>
+            </tr>
+            <tr>
+              <td><input type="text" name="medicamentos[1][nombre]"></td>
+              <td><input type="text" name="cuanto[1][nombre]"></td>
+              <td><input type="text" name="cada[1][nombre]"></td>
+              <td><input type="text" name="tiempo[1][nombre]"></td>
+              <td><input type="text" name="para_que[1][nombre]"></td>
+              <td><input type="text" name="ultima_vez[1][nombre]"></td>
+            </tr>
+            <tr>
+              <td><input type="text" name="medicamentos[2][nombre]"></td>
+              <td><input type="text" name="cuanto[2][nombre]"></td>
+              <td><input type="text" name="cada[2][nombre]"></td>
+              <td><input type="text" name="tiempo[2][nombre]"></td>
+              <td><input type="text" name="para_que[2][nombre]"></td>
+              <td><input type="text" name="ultima_vez[2][nombre]"></td>
+            </tr>
+            <tr>
+              <td><input type="text" name="medicamentos[3][nombre]"></td>
+              <td><input type="text" name="cuanto[3][nombre]"></td>
+              <td><input type="text" name="cada[3][nombre]"></td>
+              <td><input type="text" name="tiempo[3][nombre]"></td>
+              <td><input type="text" name="para_que[3][nombre]"></td>
+              <td><input type="text" name="ultima_vez[3][nombre]"></td>
+            </tr>
+
+          </table><br>
+        </div>
+              
+          </div>
+
+        <div class="row col-12">
+            
+            <div class="col-lg-6">
+                
+        <div class="input-container mb-2">
+            <label for="nombre"><strong>¿Haz tenido que realizar algun cambio en un tratamiento este ultimo tiempo?(marcar con ✓)</strong></label><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                <label class="form-check-label" for="inlineCheckbox1">Si</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                <label class="form-check-label" for="inlineCheckbox2">No</label><br>
+              </div>
+            <div class="row">
+                    <input class="form-control w-50 ms-2" type="text" id="default-input" placeholder="¿Cuando?" aria-label="default input example">  
+                </div>
+          </div>
+                
+        <div class="input-container mb-2">
+            <label for="nombre"><strong>¿Agregaste un medicamento nuevo?</strong></label><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                <label class="form-check-label" for="inlineCheckbox1">Si</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                <label class="form-check-label" for="inlineCheckbox2">No</label><br>
+              </div>
+            <div class="row">
+                    <input class="form-control w-50 ms-2" type="text" id="default-input" placeholder="¿Cuales?" aria-label="default input example">  
+                </div>
+          </div>
+                
+        <div class="input-container mb-2">
+            <label for="nombre"><strong>¿Quitaste un medicamento nuevo?</strong></label><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                <label class="form-check-label" for="inlineCheckbox1">Si</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                <label class="form-check-label" for="inlineCheckbox2">No</label><br>
+              </div>
+            <div class="row">
+                    <input class="form-control w-50 ms-2" type="text" id="default-input" placeholder="¿Cuales?" aria-label="default input example">  
+                </div>
+          </div>
+                
+                
+        <div class="input-container mb-2">
+            <label for="nombre"><strong>¿Suspendiste tu tratamineto en las ultimas dos semanas?</strong></label><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                <label class="form-check-label" for="inlineCheckbox1">Si</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                <label class="form-check-label" for="inlineCheckbox2">No</label><br>
+              </div>
+            <div class="row">
+                    <input class="form-control w-50 ms-2" type="text" id="default-input" placeholder="¿Por que motivo?" aria-label="default input example">  
+                </div>
+          </div>
+                
+                
+        <div class="input-container mb-2">
+            <label for="nombre"><strong>¿Suspendiste tu tratamineto en las ultimas dos semanas?</strong></label><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                <label class="form-check-label" for="inlineCheckbox1">Si</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                <label class="form-check-label" for="inlineCheckbox2">No</label><br>
+              </div>
+            <div class="row">
+                    <input class="form-control w-50 ms-2" type="text" id="default-input" placeholder="¿Por que motivo?" aria-label="default input example">  
+                </div>
+          </div>
+                                  
+                
+        </div>
+            
+            <div class="col-lg-6">
+                
+        <div>
+          <strong class="d-block mt-2 mb-2">¿Como consideras que es tu calidad de vida?</strong>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox9" value="option1">
+            <label class="form-check-label" for="inlineCheckbox9">Excelente</label>
+          </div><br>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox10" value="option2">
+            <label class="form-check-label" for="inlineCheckbox10">Buena</label>
+          </div><br>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox11" value="option2">
+            <label class="form-check-label" for="inlineCheckbox11">Regular</label>
+          </div><br>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox11" value="option2">
+            <label class="form-check-label" for="inlineCheckbox11">Mala</label>
+          </div>
+          <div>
+              
+            <strong class="d-block mt-2 mb-2">¿Tu consulta es urgente?</strong>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox9" value="option1">
+              <label class="form-check-label" for="inlineCheckbox9">SI</label>
+            </div><br>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox10" value="option2">
+              <label class="form-check-label" for="inlineCheckbox10">NO</label>
+            </div><br>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox11" value="option2">
+              <label class="form-check-label" for="inlineCheckbox11">MAS O MENOS</label>
+            </div>
+        </div>
+        <br>
+
+        <div>
+
+          <div>
+            <strong class="d-block mt-2 mb-2">¿Servicios Propuestos?</strong>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="servicios_propuestos" id="conci" value="1" required>
+            <label class="form-check-label" for="conci">Conciliación</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="servicios_propuestos" id="seguim" value="2" required>
+            <label class="form-check-label" for="seguim">Seguimiento</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="servicios_propuestos" id="urg" value="3" required>
+            <label class="form-check-label" for="urg">Urgencia</label>
+          </div>
+          <div class="mb-3">
+            <strong class="d-block mt-4 mb-2">¿Como podemos ayudarte hoy?</strong>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div><br>
+          <b>IMPORTANTE: Si necesitamos mas informacion para resolver tu caso podriamos contactarte por telefono,
+            whatsapp o correo electronico. Tenemos 24 horas para resolver tus dudas. Si necesitas otros servicios
+            farmaceuticos puedes manifestarlo cuando te entreguemos la informacion que necesitas.</b>
+        </div>
+        <div class="row">
+          <div class="col">
+            <button type="submit" class="btn btn-primary mt-4" id="enviarFormulario_antecedentes">Insertar</button>
+
+          </div>
+          <div class="col">
+            <button type="button" class="btn btn-danger" id="cancelarModificacion_antecedentes" style="display: none;">Cancelar Modificación</button>
+          </div>
+        </div>
+                </div>
+            </div>
+            </div>
+      </form>
+    </div>
+          
+</div>
+
+
+ <!--historial de servicios-->
+  <div class="tab-pane fade" id="nav-ho" role="tabpanel" aria-labelledby="nav-he-tab" href="#item5" tabindex="0">
+    <div class="col-lg-4 col-12 p-3 mb-3">
+      <style>
+        .red-background {
+          background-color: #f06565 !important;
+
+        }
+      </style>
+
+
+      <h3>Historial de servicios</h3>
+    </div>
+    <div id="no-more-tables">
+      <div class="tbl-container bdr">
+        <div id="list2">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th width="15%"><span class="pl-t">Nombre</span></th>
+                <th width="15%">Estado</th>
+                <th width="15%">Servicio</th>
+                <th width="15%">Contactar</th>
+                <th width="15%">Tiempo</th>
+                <th width="15%">Acción</th>
+              </tr>
+            </thead>
+            <tbody id="list3">
+             
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

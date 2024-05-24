@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>registrarse</title>
+</head>
+<body>
+    <div>
+        <form id="register-form" action="{% url 'register' %}" method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+            <div>
+                <div><b>Usuario:</b></div>
+                <div><input type="text" class="w-100" name="usuario" id="username"></div>
+            </div>
+            <div>
+                <div><b>Email:</b></div>
+                <div><input type="text" class="w-100" name="email" id="email"></div>
+            </div>
+            <div>
+                <div><b>Contraseña:</b></div>
+                <div><input type="password" class="w-100" name="contrasena" id="password"></div>
+            </div>
+            <div>
+                <div><b>Cesfam:</b></div>
+                <div><input type="text" class="w-100" name="cesfam" id="cesfam"></div>
+            </div>
+            <div>
+                <div><b>Sintomas:</b></div>
+                <div><input type="text" class="w-100" name="sintomas" id="sintomas"></div>
+            </div>
+            <div>
+                <div><b>Peso:</b></div>
+                <div><input type="number" class="w-100" name="peso" id="peso"></div>
+            </div>
+            
+            <button type="submit">Registrarse</button>
+        </form>
+
+    </div>
+    <!-- <div class="area-chat p-4">
+        <div class="col-lg-9 col-8">
+            <h4>Conversaciones</h4>
+        </div>
+        <div class="col-lg-3 col-4">
+                     
+                 <a href="javascript: ter_chat('<?php echo $_GET['idd2']?>')" id="fin" style="display:none"><i class="bi bi-x-circle-fill"></i> Terminar chat</a><br>
+                 <?php 
+                 $sql = "select ocupantes, id_chat from tbl_chat where (id_dialog = '".$_GET['idd']."' or id_chat = '".$_GET['idd2']."')";
+                 $result_listas2 = $con->prepare($sql);
+                 $result_listas2->execute();
+          
+                 while ($row = $result_listas2->fetch(PDO::FETCH_ASSOC)) { 
+                      $user2 = $row['ocupantes'];
+                      $chat = $row['id_chat'];
+                 }
+                 
+                 ?>
+                 <a href="javascript:ini_chat(<?php echo $_SESSION['userID']?>,<?php echo $user2?>,<?php echo $chat?>);" id="ini"><i class="bi bi-x-circle-fill"></i> Iniciar chat</a><br>
+  
+                 <div class="w-100 badge bg-primary">Tiempo del chat:<br><label id="countdown"></label></div>
+        </div>
+        <div class="row pt-4">
+              <iframe  id="frame" height="550"></iframe>
+         
+        </div>
+     </div> -->
+
+</body>
+</html>
