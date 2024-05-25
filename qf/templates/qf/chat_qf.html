@@ -7,24 +7,24 @@
 <div class="probando">
     <form action="" id = "form_chat"> 
         <label id = 'message' for="">mensaje:</label>   
-        <input type="text">
+        <input id = 'messageId'type="text">
         <button type="submit">enviar</button>
     </form>
     <table class="table table-success">
-        <tbody>
+        <tbody id="chatBodyId">
             <tr>
                 <td style="width: 10px;">19:58</td>
                 <td style="width: 50px;">paciente1:</td>
                 <td>Hola mundo!!</td>
             </tr>
             <tr>
-                <td>20:00</td>
-                <td>quimicofar1:</td>
+                <td style="width: 10px;">20:00</td>
+                <td style="width: 50px;">quimicofar1:</td>
                 <td>Hola gerundio!!</td>
             </tr>
             <tr>
-                <td>20:05</td>
-                <td>paciente1:</td>
+                <td style="width: 10px;">20:05</td>
+                <td style="width: 50px;">paciente1:</td>
                 <td>no me digas gerundio!!</td>
             </tr>
         </tbody>
@@ -33,7 +33,7 @@
 
 <input type="hidden" id="token" value="{{ token }}" disabled>
 <input type="hidden" id="idQui" value="{{ user_id_connectycube }}" disabled> 
-
+<input type="hidden" id="idQui" value="{{ dialogId }}" disabled> 
 
 <script src="https://cdn.jsdelivr.net/npm/connectycube@3.28.0/dist/connectycube.min.js"></script>
 
@@ -53,54 +53,27 @@ document.addEventListener("DOMContentLoaded", function() {
 
     var token = document.getElementById("token").value;
     var userIdQui = document.getElementById("idQui").value;
-    var dialogId = null;
+    var dialogId = document.getElementById("dialogId").value;
 
     console.log(token);
     console.log(userIdQui);
-
+    console.log(dialogId);
     // Login to ConnectyCube
     const userCredentials = {
         login: userIdQui,
-        password: token // Adjust accordingly if you use another way to get user password/token
+        password: token 
     };
 
-    ConnectyCube.createSession(userCredentials).then((session) => {
-        console.log("Session created: ", session);
-        // Now that we have a session, we can retrieve the dialog or create one
-        retrieveOrCreateDialog(session.user_id);
-    }).catch((error) => {
-        console.error("Session creation error: ", error);
-    });
+    ConnectyCube.chat.connect(userCredentials)
+        .then((result) => {
+            console.log("Connectado!: ", result)
+        })
+        .catch((error) => {
+            console.log("error: ", error)
+        });
 
-    function retrieveOrCreateDialog(userId) {
-        // Retrieve existing dialogs
-        ConnectyCube.chat.dialog
-            .list()
-            .then((result) => {
-                console.log("Dialogs: ", result);
-                let dialog = result.items.find((d) => d.type === 3 && d.occupants_ids.includes(userId));
-                if (dialog) {
-                    console.log("Dialog found: ", dialog);
-                    dialogId = dialog._id
-                    loadMessages(dialog._id);
-                } else {
-                    // Create a new dialog if not found
-                    const params = {
-                        type: 3,
-                        occupants_ids: [userId]
-                    };
-                    ConnectyCube.chat.dialog.create(params).then((newDialog) => {
-                        console.log("Dialog created: ", newDialog);
-                        loadMessages(newDialog._id);
-                    }).catch((error) => {
-                        console.error("Dialog creation error: ", error);
-                    });
-                }
-            })
-            .catch((error) => {
-                console.error("Dialog retrieval error: ", error);
-            });
-    }
+
+    
 
     function loadMessages(dialogId) {
         const params = { chat_dialog_id: dialogId, sort_desc: 'date_sent', limit: 50 };
@@ -117,8 +90,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function updateChatTable(messages) {
-        const chatTableBody = document.querySelector('#chatTableBody');
-        chatTableBody.innerHTML = ''; // Clear the table first
+        const chatTableBody = document.getElementById("chatBodyId");
+        chatTableBody.innerHTML = ''; // limpia los chats de la tabla
         messages.forEach((message) => {
             const row = document.createElement('tr');
             const timeCell = document.createElement('td');
@@ -139,13 +112,13 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Add event listener for the form submission
+
     var formChat = document.getElementById("form_chat");
     formChat.addEventListener("submit", function(event) {
         event.preventDefault();
-        var messageInput = document.getElementById("messageInput");
+        var messageInput = document.getElementById("messageId");
         var message = messageInput.value;
-        var dialogId = dialogId; // You need to set the dialogId from your dialog creation/retrieval process
+        var dialogId = dialogId;
         if (message && dialogId) {
             sendMessage(dialogId, message);
         }

@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 
-from .models import Paciente, QuimicoFarmaceutico
+from .models import Paciente, QuimicoFarmaceutico, UsusariosChat, Chat
 from .connectycube import create_session,register_user_connecticube,search_user,create_dialog_private
 
 # Create your views here.
@@ -170,6 +170,7 @@ def quimico_chat(request, user_id):
     token = request.session['tokenUser']
     #info del paciente con el cual creara el chat
     paciente = Paciente.objects.get(user_id = user_id)
+    quimico = QuimicoFarmaceutico.objects.get(user_id = request.user.id)
     user = User.objects.get(id = user_id)
     #response para el paciente
     responsePac = search_user(token, user.username)
@@ -182,12 +183,16 @@ def quimico_chat(request, user_id):
     chat_user.append(idQui)
 
     dialog_response = create_dialog_private(token,chat_user)
-    
+    dialogID = dialog_response['_id']
     paciente.esperando = False
     paciente.save()
-
+    #creo un objeto que contendra a los usuarios, posterior mente subire a la base de datos
+    chat = Chat.objects.create(dialogId = dialogID)
+    usuarios_chat = UsusariosChat.objects.create(id_paciente = paciente, id_quimico = quimico, id_chat = chat)
+    usuarios_chat.save()
     context = {
         'token': token,
         'user_id_connectycube': idQui,
+        'dialogId': dialogID,
     }
     return render(request, 'qf/chat_qf.html',context)
