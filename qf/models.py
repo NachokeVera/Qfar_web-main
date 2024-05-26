@@ -34,6 +34,6 @@ class Chat(models.Model):
     dialogId = models.TextField()
 
 class UsusariosChat(models.Model):
-    id_paciente = models.OneToOneField(Paciente, on_delete=models.CASCADE)
-    id_quimico = models.OneToOneField(QuimicoFarmaceutico, on_delete=models.CASCADE)
-    id_chat = models.OneToOneField(Chat, on_delete=models.CASCADE)
+    id_paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
+    id_quimico = models.ForeignKey(QuimicoFarmaceutico, on_delete=models.CASCADE)
+    id_chat = models.ForeignKey(Chat, on_delete=models.CASCADE)
