@@ -1,9 +1,12 @@
-{% extends 'admin/base.html' %}
+{% extends 'adminn/base.html' %}
+{% load static %}
 {% block contenido %}
 
 <body>
     
-    <form name="formu1" id="formu1" method="post" action="" enctype="multipart/form-data">
+    <form action="{% url 'createpaciente' %}" method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
 	 	<input type="hidden" name="accion" value="">
 		<input type="hidden" name="login" value="">
 		<input type="hidden" name="userID" value="">      
@@ -15,9 +18,21 @@
             
             <div class="row col-12 clr-1">
                 <div class="col-12 col-lg-4">
+                    Subir fotografía
+                    <div class="col-12 mt-4 mb-4">
+                        <div class="foto-qf m-auto">
+                            <img src="{% static 'qf/imgs/usuario.png' %}" style="height:200px ;width:200px ;" alt="imagen QF">   
+                        </div>
+                        <div class="row mt-4">
+                            <input type="file" name="avatar" id="avatar">
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="col-12 col-lg-4">
                     Nombre
                  
-                    <input type="text" class="caja-input w-100" name="nombre" id="nombre">
+                    <input type="text" class="caja-input w-100" name="usuario" id="nombre">
                     RUT
                     <input type="text" class="caja-input w-100" name="rut" id="rut" onblur="formatearRut(this)">
                     Fecha de nacimiento
@@ -25,7 +40,7 @@
                     Sexo
 					<div class="select mt-2">
 						<select name="sexo" id="sexo">
-							<option value="">Seleccione</option>
+							
 							<option value="MASCULINO">Masculino</option>
 							<option value="FEMENINO">Femenino</option>
 							<option value="PREFIERO NO ESPECIFICAR">Prefiero no especificar</option>
@@ -33,6 +48,8 @@
 						<div class="select_arrow">
 						</div>
 				    </div>
+                    cesfam
+                    <input type="text" class="caja-input w-100" id="datepicker" name="cesfam" id="fecha_nac">
 				   
                   
                 </div>
@@ -42,59 +59,22 @@
                   
                     Teléfono
                     <input type="text" class="caja-input w-100" name="telefono" id="telefono">
-                    EMail
+                    Email
                     <input type="text" class="caja-input w-100" name="email" id="email">  
 
 					Clave
                     <input type="password" class="caja-input w-100" name="clave" id="clave">  
-                    <div class="mt-2 mb-2">Horarios disponibles</div>
-                    <div class="select">
-                        <select class="mb-1" name="horarios_disponibles" id="horarios_disponibles">
-                            <option value="">Seleccione horarios</option>
-                            <option value="9:00 a 18:00">9:00 a 18:00</option>
-                            <option value="18:00 a 0:00">18:00 a 0:00</option>
-                        </select>
-                        <div class="select_arrow">
-                        </div>
-                    </div>
-                    <div class="mb-2">Especialidad</div>
-                    <div class="select">
-                        <select class="mb-1" name="id_especialidad_qf" id="id_especialidad_qf">
-                            <option value="">Seleccione</option>
-                          
-                        </select>
-                        <div class="select_arrow">
-                        </div>
-		                <div class="mt-2 mb-2">&nbsp;</div>
-		                <div class="container">
-                    		<div class="row">
-                    		    
-			                    <button type="button" class="btn-qfar" onclick="javascript: grabar1();">Guardar</button>
-			                    <hr style="color: white;" >
-			                    <button type="button" style="background-color:#0d6efd;color: white;" class="btn-qfar" onclick="javascript: relocate();">Regresar</button>
-			                    
-		                    </div>
-		                </div>
-                    </div>
+                    Confirmar clave
+                    <input type="password" class="caja-input w-100" name="clave" id="clave">  
+                    Peso
+                    <input type="text" class="caja-input w-100" id="datepicker" name="peso" id="fecha_nac">
+                  
+                  
+                   
+                    <button type="submit" class="btn-qfar" >Guardar</button>
                 </div> 
               
-                <div class="col-12 col-lg-4">
-                    Subir fotografía
-                    <div class="col-12 mt-4 mb-4">
-                        <div class="foto-qf m-auto">
-                            <img src="../imgs/img-usuario.jpg" class="img-fluid" alt="imagen QF">   
-                        </div>
-                        <div class="row mt-4">
-                            <input type="file" name="avatar" id="avatar">
-                        </div>
-                    </div>
-                    <div class="col-12 mb-4">
-                        Subir curriculum vitae
-                        <div class="row mt-4">
-                            <input type="file" name="archivo" id="archivo">
-                        </div>
-                    </div>
-                </div>
+                
             </div>
 
         
@@ -106,33 +86,7 @@
       </div>
 
             <!-- Modal info cambio de contraseña-->
-<div class="modal fade" id="cambio-clave" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title" id="staticBackdropLabel">Cambio de contraseña</h3>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-		  <div class="container pt-2">
-           <p class="pb-2">Ingrese la actual contraseña de administración y posteriormente la nueva clave que quiere tener para acceder al sistema de administración, posteriormente será enviado un correo electrónico a la casilla del administrador donde debe aceptar el nuevo cambio de clave.</p>
-		  <div class="row">
-		  <div class="col-sm-3 mb-3">Clave actual:</div>
-		  <div class="col-sm-9 mb-3"><input type="password" id="clave1" class="wide-input-form" required>
-		  <input type="hidden" id="clave_old" class="wide-input-form" value="<?php echo $clave_actual?>"></div>
-        <div class="col-sm-3 mb-3">Nueva clave:</div>
-		  <div class="col-sm-9 mb-3"><input type="password" id="clave2" class="wide-input-form" required></div>
-		  </div>
-		</div>
-		  <div class="container">
-		  <div class="row">
-			  <button type="button" class="btn-qfar" onclick='javascript:actualizar_clave(localStorage.getItem("userId2"),document.getElementById("clave1").value, document.getElementById("clave_old").value,document.getElementById("clave2").value)'>cambiar contraseña</button>
-		  </div>
-		</div>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 
    

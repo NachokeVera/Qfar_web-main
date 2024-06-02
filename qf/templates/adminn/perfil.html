@@ -1,0 +1,45 @@
+{% extends 'adminn/base.html' %}
+{% load static %}
+{% block contenido %}
+<div style="background-color: aqua;text-align: center;margin: 150px;">
+    <div class="row">
+        <div style="background-color: blueviolet;" class="col-4">
+            <img src="{% static 'qf/imgs/usuario.png' %}" class="imgUsuario" alt="usuario"><br>
+            {{perfil.user.username}}  {{perfil.user.last_name}}
+    </div>
+        <div style="background-color: rgb(97, 196, 127); text-align: left;" class="col-8">
+            <div class="atributo">
+                rut:
+            </div>
+            <div class="atributo">
+                email: {{perfil.user.email}} 
+            </div>
+            <div class="atributo">
+                sexo:
+            </div>
+            <div class="atributo">
+                fecha de nacimiento: 
+            </div>
+            <div class="atributo">
+                ubicacion: 
+            </div>
+        
+            <div class="atributo">
+                telefono:
+            </div>
+        
+            <div class="atributo">
+                cesfam: {{perfil.cesfam}} 
+            </div>
+            <div class="atributo">
+                Peso: {{perfil.peso}} kg
+            </div>
+        
+        
+        
+        </div>
+
+    </div>
+    
+</div>
+{% endblock %}

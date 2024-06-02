@@ -16,20 +16,41 @@ from .connectycube import create_session,register_user_connecticube,search_user,
 def index(request):
     return HttpResponse("hellow, world")
 
+def inicio_admin(request):
+
+    paciente=Paciente.objects.all()
+    total_pacientes= paciente.count()
+    quimico=QuimicoFarmaceutico.objects.all()
+    total_quimicos= quimico.count()
+
+    context = {
+        'UsuarioSistema': paciente,
+        'totalP': total_pacientes,
+        'totalQ': total_quimicos
+
+        }
+    return render(request,'adminn/inicio.html',context)
+
+def perfil(request,id):
+    paciente=Paciente.objects.get(user__id=id)
+    quimico=QuimicoFarmaceutico.objects.all()
+    context = {'perfil': paciente }
+    return render(request,'adminn/perfil.html',context)
+
 def pacientes_admin(request):
     paciente=Paciente.objects.all()
     context = {'UsuarioSistema': paciente }
-    return render(request,'admin/pacientes.html',context)
+    return render(request,'adminn/pacientes.html',context)
 
 def quimicos_admin(request):
     quimico=QuimicoFarmaceutico.objects.all()
     context = {'quimicoSistema': quimico }
-    return render(request,'admin/quimicos.html',context)
+    return render(request,'adminn/quimicos.html',context)
 
 def nuevo_paciente(request):
     quimico=QuimicoFarmaceutico.objects.all()
     context = {'quimicoSistema': quimico }
-    return render(request,'admin/nuevo_paciente.html',context)
+    return render(request,'adminn/nuevo_paciente.html',context)
 
 def home(request):
     return render(request,'qf/home.html')
@@ -97,7 +118,39 @@ def create_quimi_far(request):
 
         return redirect('index')
     else:
-        return render(request,'admin/formulario_qf.html')
+        return render(request,'adminn/formulario_qf.html')
+    
+def create_paciente(request):
+    if request.method == 'POST':
+        username = request.POST.get('usuario')
+        email = request.POST.get('email')
+        password = request.POST.get('clave')
+        sexo = request.POST.get('sexo')
+        rut = request.POST.get('rut')
+        #telefono = request.POST.get('telefono')
+        cesfam= request.POST.get('cesfam')
+        sintomas= request.POST.get('telefono')
+        peso= request.POST.get('peso')
+       
+
+        # Crear el usuario de Django
+        user = User.objects.create_user(username, email, password)
+        user.save()
+
+        # Crear el objeto QuimicoFarmaceutico relacionado
+        paciente = Paciente.objects.create(
+            user=user,
+            cesfam=cesfam,
+            sintomas=sintomas,
+            peso=peso
+
+           
+        )
+        paciente.save()
+
+        return redirect('inicio_admin')
+    else:
+        return render(request,'adminn/nuevo_paciente.html')
     
 def register(request):
     if request.method == 'POST':

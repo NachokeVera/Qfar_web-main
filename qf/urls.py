@@ -1,20 +1,23 @@
 from django.urls import path
 
-from .views import home,nuevo_paciente, quimicos_admin, index,login,listado,cerrarsesion,create_quimi_far,register,pacientes_admin,paciente_index, paciente_espera,quimico_chat,lista_pacientes_espera
+from .views import home,nuevo_paciente,inicio_admin,create_paciente,perfil, quimicos_admin, index,login,listado,cerrarsesion,create_quimi_far,register,pacientes_admin,paciente_index, paciente_espera,quimico_chat,lista_pacientes_espera
 
 urlpatterns = [
     path("index", index, name="index"),
     path('home', home, name='home'),
-    path('login', login, name='login'),
+    path('', login, name='login'),
+    path('inicio_admin', inicio_admin, name='inicio_admin'),
     #Ruta para registrarse como paciente
     path('register', register, name='register'),
+    path('perfil<int:id>', perfil, name='perfil'),
+    path('create_paciente', create_paciente, name='createpaciente'),
     path('listado', listado, name='listado'),
     path('cerrarsesion', cerrarsesion, name='cerrarsesion'),
     path('nuevo_paciente', nuevo_paciente, name='nuevo_paciente'),
     path('pacientes_admin', pacientes_admin, name='pacientes_admin'),
     path('quimicos_admin', quimicos_admin, name='quimicos_admin'),
     #Ruta para registrar un quimico farmaceutico
-    #path('admin/form', create_quimi_far, name='adminform'),
+    path('form', create_quimi_far, name='adminform'),
     #rutas paciente
     path('paciente/index',paciente_index, name='paciente_index'),
     path('paciente/espera',paciente_espera, name='paciente_espera'),

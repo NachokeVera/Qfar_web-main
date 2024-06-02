@@ -1,8 +1,46 @@
 {% extends 'adminn/base.html' %}
+{% load static %}
 {% block contenido %}
 
-<div>
-    Pacientes
+
+<div class="row" style="margin: 10px;text-align: center;">
+    <div  class="col" >
+        <div class="columna">
+            Total de pacientes
+            <div class="col-8">
+ {{totalP}}
+            </div>
+            <div class="col-4">
+ <i class="fa-solid fa-user fa-2xl"></i>
+            </div>
+            
+            
+            
+        </div>
+       </div>
+       <div  class="col" >
+        <div class="columna">
+           
+             Total de Farmaceuticos <br>
+             {{totalQ}} <i class="fa-regular fa-user fa-2xl"></i>
+        </div>
+       </div>
+       <div  class="col" >
+        <div class="columna">
+             <i class="fa-regular fa-user fa-2xl"></i>
+        </div>
+       </div>
+       <div  class="col" >
+        <div class="columna">
+             <i class="fa-regular fa-user fa-2xl"></i>
+        </div>
+       </div>
+       <div  class="col" >
+        <div class="columna">
+             <i class="fa-regular fa-user fa-2xl"></i>
+        </div>
+       </div>
+
 </div>
 <div class="padingbonito">
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -122,8 +160,8 @@
               <tbody>
                 {% for i in UsuarioSistema %}
                 <tr >
-                    <td >{{i.user.username}}</td>
-                    <td>{{i.peso}}</td>
+                    <td ><a href="{% url 'perfil' i.user.id %}"> {{i.user.username}}</a></td>
+                    <td>{{i.peso}}  </td>
                     <td ></td>
                     <td></td>
                  

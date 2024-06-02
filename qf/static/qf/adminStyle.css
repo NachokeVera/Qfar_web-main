@@ -1,0 +1,112 @@
+.areamenu {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    color: white;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #242424;
+    /*color negro*/
+    overflow-x: hidden;
+    padding-top: 20px;
+    transition: 0.3s;
+    border-right: 5px solid  #368bd8;
+}
+.img-logos{
+height:40px ;
+width:40px ;
+}
+.areamenu ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.areamenu ul li {
+    position: relative;
+}
+
+.area-menu {
+    background-color: #242424;
+    height: 60px;
+    color: white;
+    /*color negro*/
+}
+.imgUsuario{
+    height:300px ;
+    width: 300px;
+    border-radius: 50%;
+
+}
+.areamenu ul li a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    display: block;
+}
+
+.areamenu ul li a:hover {
+    /*background-color: #575757;*/
+    color: yellow;
+}
+
+.openbtn {
+    font-size: 40px;
+    cursor: pointer;
+    background-color: #242424;
+    /*color negro*/
+    color: white;
+    padding: 2px 30px;
+    
+}
+
+.submenu {
+    max-height: 0;
+    list-style-type: none;
+    background-color: #3a3a3a;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+   
+}
+
+.submenu li {
+    padding: 10px;
+}
+
+.submenu.open {
+    max-height: 500px;
+    /* Ajusta este valor según la altura esperada del contenido */
+}
+
+.main-content {
+    transition: margin-left 0.3s;
+    padding: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-open {
+    margin-left: 250px;
+}
+
+.padingbonito {
+    padding: 0 30px 0 30px;
+    margin: 30px 0 0 0;
+}
+
+.img-usuario {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+}
+.columna{
+    background-color: #e0e0e0;
+    font-size: 18px;
+
+    height: 100px;
+    border-radius: 0px;
+    margin-left: 0px;
+}
