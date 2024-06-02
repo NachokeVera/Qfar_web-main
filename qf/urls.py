@@ -14,7 +14,7 @@ urlpatterns = [
     path('pacientes_admin', pacientes_admin, name='pacientes_admin'),
     path('quimicos_admin', quimicos_admin, name='quimicos_admin'),
     #Ruta para registrar un quimico farmaceutico
-    path('admin/form', create_quimi_far, name='adminform'),
+    #path('admin/form', create_quimi_far, name='adminform'),
     #rutas paciente
     path('paciente/index',paciente_index, name='paciente_index'),
     path('paciente/espera',paciente_espera, name='paciente_espera'),

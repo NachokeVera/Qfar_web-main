@@ -7,8 +7,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 
+from django.core.exceptions import ObjectDoesNotExist
 from .models import Paciente, QuimicoFarmaceutico, UsusariosChat, Chat
-from .connectycube import create_session,register_user_connecticube,search_user,create_dialog_private
+from .connectycube import create_session,register_user_connecticube,search_user,create_dialog
 
 # Create your views here.
 
@@ -138,9 +139,32 @@ def paciente_index(request):
     return render(request, 'paciente/index.html',context)
 
 def paciente_espera(request):
+    def usuario_chat_exist(paciente):
+        try:
+            usuariosChat = UsusariosChat.objects.get(id_paciente = paciente.id)
+            return usuariosChat
+        except UsusariosChat.DoesNotExist:
+            return False
+
     user = request.user
     paciente = Paciente.objects.get(user_id = user.id)
+    usuarioChat = usuario_chat_exist(paciente)
 
+    if usuarioChat:
+        #rescatar id paciente y token
+        token = request.session['tokenUser']
+        responsePac = search_user(token, user.username)
+        idPac = responsePac['items'][0]['id']
+        #rescatar dialog para conectarme a conectycube
+        chat = Chat.objects.get(id = usuarioChat.id_chat.id)
+        dialogId = chat.dialogId
+        context = {
+            'token': token,
+            'user_id_connectycube': idPac,
+            'dialogId': dialogId
+        }
+        return render(request, 'paciente/chat.html',context)
+    
     paciente.esperando = True
     paciente.save()
     context = {
@@ -182,7 +206,7 @@ def quimico_chat(request, user_id):
     chat_user.append(idPac)
     chat_user.append(idQui)
 
-    dialog_response = create_dialog_private(token,chat_user)
+    dialog_response = create_dialog(token,chat_user)
     dialogID = dialog_response['_id']
     paciente.esperando = False
     paciente.save()

@@ -3,6 +3,7 @@ import hashlib
 import hmac
 import time
 import random
+from datetime import datetime
 
 
 # Datos de configuración
@@ -78,13 +79,15 @@ def register_user_connecticube(token, username, email, password):
     print (response)
     return response.json()
 
-def create_dialog_private(token, occupants_ids):
-    typeDidalog = 3
+def create_dialog(token, occupants_ids):
+    typeDidalog = 2
     url = f'{BASE_URL}/chat/Dialog'
+    timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
 
     body = {
         'type': typeDidalog,
-        'occupants_ids': occupants_ids
+        'occupants_ids': occupants_ids,
+        'name': f"CHAT: {timestamp}"
     }
 
     headers = {
