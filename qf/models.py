@@ -8,6 +8,8 @@ class Paciente(models.Model):
     sintomas = models.TextField()
     peso = models.IntegerField()
     esperando = models.BooleanField(default=False)
+    def __str__(self) -> str:
+        return self.user.username
 
 class QuimicoFarmaceutico(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='quimico_farmaceutico')
@@ -17,13 +19,18 @@ class QuimicoFarmaceutico(models.Model):
     horario_disponible = models.CharField(max_length=60)
     #foto_perfil = models.CharField(max_length=200, unique=True)
     numero_registro = models.CharField(max_length=60)
+    def __str__(self) -> str:
+        return self.user.username
 
 class Perfil(models.Model):
-    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='perfil')
     sexo = models.CharField(max_length=1)
     rut = models.CharField(max_length=12, unique=True)
-    telefono = models.CharField(max_length=15, unique=True)
+    telefono = models.CharField(max_length=15)
     fecha_de_nacimiento = models.DateField()
+    fotou = models.ImageField(upload_to="perfiles")
+    def __str__(self) -> str:
+        return self.usuario.username
     
 class AreaMedica(models.Model):
     area_medica = models.CharField(max_length=25)

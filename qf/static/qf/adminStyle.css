@@ -33,9 +33,10 @@ width:40px ;
     /*color negro*/
 }
 .imgUsuario{
-    height:300px ;
-    width: 300px;
+    height:200px ;
+    width: 200px;
     border-radius: 50%;
+    margin: 10px;
 
 }
 .areamenu ul li a {
@@ -110,3 +111,10 @@ width:40px ;
     border-radius: 0px;
     margin-left: 0px;
 }
+.atributo{
+    font-size:23px;
+}
+
+
+
+

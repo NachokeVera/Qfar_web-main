@@ -12,7 +12,7 @@ button{color:#022e5c;background:#00cd9b;font-size:1.2em!important;border:0;paddi
 button.btn-qfar{border-radius:20px!important;}
 button.btn-qfar:hover{background:#17e044;}
 
-thead{color:#368bd8;background:#ffce10;}
+/*thead{color:#368bd8;background:#ffce10;}*/
 
 td, td a{color:#fff;}
 
@@ -95,7 +95,7 @@ td, td a{color:#fff;}
 
 .bdr{border-radius:20px;overflow:hidden;}
 
-.table-hover tbody tr:hover td, .table-hover tbody tr:hover th{color:#fff;background-color:#00cd9b;}
+/*.table-hover tbody tr:hover td, .table-hover tbody tr:hover th{color:#fff;background-color:#00cd9b;}*/
 
 .pl-t{padding-left:15px;}
 
@@ -124,7 +124,7 @@ h3.modal-title{color:#368bd8;font-size:1.5rem;}
 .modal-body button{width:auto;margin:20px 0 0 10px;padding:5px 30px;}
 
 .wide-input-form{width:90%;}
-
+/*
 @media only screen and (max-width: 800px) {
     
 	#no-more-tables table, #no-more-tables thead, #no-more-tables tbody, #no-more-tables th, #no-more-tables td, #no-more-tables tr {width:100%;display:block;}
@@ -142,7 +142,7 @@ h3.modal-title{color:#368bd8;font-size:1.5rem;}
     .bdr{border-radius:0;}
     
     .pl-t{padding:0;}
-}
+}*/
 
 @media (max-width: 768px) {
     
