@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Paciente, QuimicoFarmaceutico, UsusariosChat, Chat
+from .models import Paciente, QuimicoFarmaceutico, UsusariosChat, Chat, Perfil
 from .connectycube import create_session,register_user_connecticube,search_user,create_dialog
 
 # Create your views here.
@@ -33,9 +33,18 @@ def inicio_admin(request):
 
 def perfil(request,id):
     paciente=Paciente.objects.get(user__id=id)
-    quimico=QuimicoFarmaceutico.objects.all()
-    context = {'perfil': paciente }
+    perfilP=Perfil.objects.get(usuario__id=id)
+    
+    context = {'perfil': paciente,
+               'perfilP': perfilP}
     return render(request,'adminn/perfil.html',context)
+def perfilQ(request,id):
+    quimico=QuimicoFarmaceutico.objects.get(user__id=id)
+    perfilP=Perfil.objects.get(usuario__id=id)
+    
+    context = {'perfil': quimico,
+               'perfilQ': perfilP}
+    return render(request,'adminn/perfilQ.html',context)
 
 def pacientes_admin(request):
     paciente=Paciente.objects.all()
@@ -93,6 +102,10 @@ def create_quimi_far(request):
         email = request.POST.get('email')
         password = request.POST.get('contrasena')
         universidad = request.POST.get('universidad')
+        sexo = request.POST.get('sexo')
+        rut = request.POST.get('rut')
+        telefono = request.POST.get('telefono')
+        fechanac = request.POST.get('fecha_nac')
         titulo = request.POST.get('titulo')
         curriculum = request.POST.get('curriculum')
         numero_registro = request.POST.get('numero_registro')
@@ -103,6 +116,14 @@ def create_quimi_far(request):
         user.save()
 
         # Crear el objeto QuimicoFarmaceutico relacionado
+        perfil = Perfil.objects.create(
+             usuario=user,
+             sexo =sexo,
+             rut = rut,
+             telefono =telefono,
+             fecha_de_nacimiento = fechanac
+
+        )
         quimico_farmaceutico = QuimicoFarmaceutico.objects.create(
             user=user,
             universidad=universidad,
@@ -112,11 +133,12 @@ def create_quimi_far(request):
             horario_disponible=horario_disponible
         )
         quimico_farmaceutico.save()
+        perfil.save()
 
         token = create_session()
         register_user_connecticube(token, username, email, password)
 
-        return redirect('index')
+        return redirect('inicio_admin')
     else:
         return render(request,'adminn/formulario_qf.html')
     
@@ -127,7 +149,8 @@ def create_paciente(request):
         password = request.POST.get('clave')
         sexo = request.POST.get('sexo')
         rut = request.POST.get('rut')
-        #telefono = request.POST.get('telefono')
+        telefono = request.POST.get('telefono')
+        fechanac = request.POST.get('fecha_nac')
         cesfam= request.POST.get('cesfam')
         sintomas= request.POST.get('telefono')
         peso= request.POST.get('peso')
@@ -138,6 +161,14 @@ def create_paciente(request):
         user.save()
 
         # Crear el objeto QuimicoFarmaceutico relacionado
+        perfil = Perfil.objects.create(
+             usuario=user,
+             sexo =sexo,
+             rut = rut,
+             telefono =telefono,
+             fecha_de_nacimiento = fechanac
+
+        )
         paciente = Paciente.objects.create(
             user=user,
             cesfam=cesfam,
@@ -147,6 +178,11 @@ def create_paciente(request):
            
         )
         paciente.save()
+        perfil.save()
+        auth_login(request, user) 
+        token = create_session()
+        connectycube_user = register_user_connecticube(token, username, email, password)
+        print(token)
 
         return redirect('inicio_admin')
     else:

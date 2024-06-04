@@ -1,41 +1,107 @@
-{% block content %}
-<form action="{% url 'adminform' %}" method="POST" enctype="multipart/form-data">
+{% extends 'adminn/base.html' %}
+{% load static %}
+{% block contenido %}
 
-    {% csrf_token %}
-    <div>
-        <div><b>Usuario:</b></div>
-        <div><input type="text" class="w-100" name="usuario" id="user"></div>
-    </div>
-    <div>
-        <div><b>Email:</b></div>
-        <div><input type="text" class="w-100" name="email" id="em"></div>
-    </div>
-    <div>
-        <div><b>Contraseña:</b></div>
-        <div><input type="password" class="w-100" name="contrasena" id="pass"></div>
+<body>
+
+    <form action="{% url 'adminform' %}" method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        <input type="hidden" name="accion" value="">
+        <input type="hidden" name="login" value="">
+        <input type="hidden" name="userID" value="">
+        <input type="hidden" name="avatar2" id="avatar2" value="">
+
+
+        <div class="container mt-5">
+            <h2 class="clr-1 mb-5">Datos del Quimico</h2>
+
+            <div class="row col-12 clr-1">
+                <div class="col-12 col-lg-4">
+                    Subir fotografía
+                    <div class="col-12 mt-4 mb-4">
+                        <div class="foto-qf m-auto">
+                            <img src="{% static 'qf/imgs/usuario.png' %}" style="height:200px ;width:200px ;"
+                                alt="imagen QF">
+                        </div>
+                        <div class="row mt-4">
+                            <input type="file" name="avatar" id="avatar">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-12 col-lg-4">
+                    Nombre
+
+                    <input type="text" class="caja-input w-100" name="usuario" id="nombre">
+                    RUT
+                    <input type="text" class="caja-input w-100" name="rut" id="rut" onblur="formatearRut(this)">
+                    Fecha de nacimiento
+                    <input type="date" class="caja-input w-100" id="datepicker" name="fecha_nac" id="fecha_nac">
+                    Sexo
+                    <div class="select mt-2">
+                        <select name="sexo" id="sexo">
+
+                            <option value="MASCULINO">Masculino</option>
+                            <option value="FEMENINO">Femenino</option>
+                            <option value="PREFIERO NO ESPECIFICAR">Prefiero no especificar</option>
+                        </select>
+                        <div class="select_arrow">
+                        </div>
+                    </div>
+                    Numero de registro:
+                    <div><input type="text" class="w-100" name="numero_registro" id="numre"></div>
+
+                    Curriculum:
+                    <div><input type="text" class="w-100" name="curriculum" id="cv"></div>
+
+                </div>
+
+
+                <div class="col-12 col-lg-4">
+
+                    Teléfono
+                    <input type="text" class="caja-input w-100" name="telefono" id="telefono">
+                    Email
+                    <input type="text" class="caja-input w-100" name="email" id="email">
+
+                    Clave
+                    <input type="password" class="caja-input w-100" name="clave" id="clave">
+                    Confirmar clave
+                    <input type="password" class="caja-input w-100" name="clave" id="clave">
+                    horario disponible:
+                    <div><input type="text" class="w-100" name="hora_disponible" id="hordis"></div>
+                    Universidad:
+                    <div><input type="text" class="w-100" name="universidad" id="uni"></div>
+
+                    Titulo o carrera:
+                    <div><input type="text" class="w-100" name="titulo" id="titu"></div>
+
+                    
+                </div>
+
+
+
+
+                <button type="submit" class="btn-qfar">Guardar</button>
+            </div>
+
+
+        </div>
+
+
+    </form>
+
+
+
+
     </div>
 
-    <div>
-        <div><b>Universida:</b></div>
-        <div><input type="text" class="w-100" name="universidad" id="uni"></div>
-    </div>
-    <div>
-        <div><b>Titulo:</b></div>
-        <div><input type="text" class="w-100" name="titulo" id="titu"></div>
-    </div>
-    <div>
-        <div><b>Curriculum:</b></div>
-        <div><input type="text" class="w-100" name="curriculum" id="cv"></div>
-    </div>
-    <div>
-        <div><b>Numero de registro:</b></div>
-        <div><input type="text" class="w-100" name="numero_registro" id="numre"></div>
-    </div>
-    <div>
-        <div><b>horario disponible:</b></div>
-        <div><input type="text" class="w-100" name="hora_disponible" id="hordis"></div>
-    </div>
+    <!-- Modal info cambio de contraseña-->
 
-    <button type="submit">Registrar Quimico Farmaceutico</button>
-</form>
+
+
+
+
+</body>
 {% endblock %}

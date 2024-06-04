@@ -43,7 +43,7 @@
                 <li>
                     <a href="#" onclick="toggleSubMenu('subMenuPacientes')"><i class="fa-solid fa-user fa-xl"></i>  Pacientes  </a>
                     <ul id="subMenuPacientes" class="submenu">
-                        <li><a href="#">Lista de Pacientes</a></li>
+                        <li><a href="{% url 'pacientes_admin' %}">Lista de Pacientes</a></li>
                         <li><a href="{% url 'nuevo_paciente' %}">Registrar Paciente</a></li>
                         <li><a href="#">Resúmen/Calificacion</a></li>
                         <li><a href="#">Informes</a></li>
@@ -52,7 +52,7 @@
                 <li>
                     <a href="#" onclick="toggleSubMenu('subMenuQuimicos')"><i class="fa-solid fa-user-nurse fa-xl"></i> Farmacéuticos   </a>
                     <ul id="subMenuQuimicos" class="submenu">
-                        <li><a href="#">Lista de Químicos</a></li>
+                        <li><a href="{% url 'quimicos_admin' %}">Lista de Químicos</a></li>
                         <li><a href="{% url 'adminform' %}">Registrar Químico</a></li>
                         <li><a href="#">RResúmen/Calificacion</a></li>
                         <li><a href="#">Informes</a></li>

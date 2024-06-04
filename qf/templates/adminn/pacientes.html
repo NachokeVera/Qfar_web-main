@@ -5,12 +5,12 @@
     Pacientes
 </div>
 <div class="padingbonito">
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+   <!-- <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <button class="nav-link active " id="nav-ha-tab" data-bs-toggle="tab" data-bs-target="#nav-ha" type="button" role="tab" aria-controls="nav-ha" aria-selected="false">Usuarios del sistema</button>
         
         <button class="nav-link" id="nav-hi-tab" data-bs-toggle="tab" data-bs-target="#nav-hi" type="button" role="tab" aria-controls="nav-hi" aria-selected="false">Resumenes</button>
         <button class="nav-link" id="nav-hi-nuevo-tab" data-bs-toggle="tab" data-bs-target="#nav-hi-nuevo" type="button" role="tab" aria-controls="nav-hi-nuevo" aria-selected="false">Informes</button>
-    </div>
+    </div>-->
 <!--crear cuenta de paciente-->
 <div class="tab-content">
     <div class="tab-pane fade " id="nav-ue" role="tabpanel" aria-labelledby="nav-ue-tab">
@@ -122,7 +122,7 @@
               <tbody>
                 {% for i in UsuarioSistema %}
                 <tr >
-                    <td >{{i.user.username}}</td>
+                  <td ><a href="{% url 'perfil' i.user.id %}"> {{i.user.username}}</a></td>
                     <td>{{i.peso}}</td>
                     <td ></td>
                     <td></td>

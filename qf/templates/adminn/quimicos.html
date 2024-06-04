@@ -126,7 +126,7 @@
               <tbody>
                 {% for i in quimicoSistema %}
                 <tr >
-                    <td >{{i.user.username}}</td>
+                  <td ><a href="{% url 'perfilQ' i.user.id %}"> {{i.user.username}}</a></td>
                     <td ></td>
                     <td ></td>
                     <td ></td>
