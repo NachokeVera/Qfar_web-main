@@ -5,6 +5,8 @@ from django.contrib.auth.hashers import check_password
 from django.contrib.auth import authenticate, logout,login as auth_login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+import os
 
 
 from django.core.exceptions import ObjectDoesNotExist
@@ -149,11 +151,15 @@ def create_paciente(request):
         password = request.POST.get('clave')
         sexo = request.POST.get('sexo')
         rut = request.POST.get('rut')
+        foto = request.FILES['foto']
         telefono = request.POST.get('telefono')
         fechanac = request.POST.get('fecha_nac')
         cesfam= request.POST.get('cesfam')
+        
         sintomas= request.POST.get('telefono')
         peso= request.POST.get('peso')
+      
+       
        
 
         # Crear el usuario de Django
@@ -164,6 +170,7 @@ def create_paciente(request):
         perfil = Perfil.objects.create(
              usuario=user,
              sexo =sexo,
+             fotou= foto,
              rut = rut,
              telefono =telefono,
              fecha_de_nacimiento = fechanac

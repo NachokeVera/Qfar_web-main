@@ -44,20 +44,20 @@
             <ul>
 
                 <li>
-                    <a href="#" onclick="toggleSubMenu('subMenuPacientes')"><i class="fa-solid fa-user fa-xl"></i>  Pacientes  </a>
+                    <a href="#" onclick="toggleSubMenu('subMenuPacientes')"> <i class="fa-solid fa-user-injured fa-2xl"></i>  Pacientes  </a>
                     <ul id="subMenuPacientes" class="submenu">
-                        <li><a href="{% url 'pacientes_admin' %}">Lista de Pacientes</a></li>
-                        <li><a href="{% url 'nuevo_paciente' %}">Registrar Paciente</a></li>
+                        <li><a href="{% url 'nuevo_paciente' %}"><i class="fa-solid fa-user-plus fa-sm"></i> Crear Paciente</a></li>
+                         <li><a href="{% url 'pacientes_admin' %}">Lista de Pacientes</a></li>
                         <li><a href="#">Resúmen/Calificacion</a></li>
                         <li><a href="#">Informes</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#" onclick="toggleSubMenu('subMenuQuimicos')"><i class="fa-solid fa-user-nurse fa-xl"></i> Farmacéuticos   </a>
+                    <a href="#" onclick="toggleSubMenu('subMenuQuimicos')"> <i class="fa-solid fa-user-doctor fa-2xl"></i> Farmacéuticos   </a>
                     <ul id="subMenuQuimicos" class="submenu">
-                        <li><a href="{% url 'quimicos_admin' %}">Lista de Químicos</a></li>
-                        <li><a href="{% url 'adminform' %}">Registrar Químico</a></li>
-                        <li><a href="#">RResúmen/Calificacion</a></li>
+                         <li><a href="{% url 'adminform' %}">Crear Químico</a></li>
+                         <li><a href="{% url 'quimicos_admin' %}">Lista de Químicos</a></li>
+                         <li><a href="#">Resúmen/Calificacion</a></li>
                         <li><a href="#">Informes</a></li>
                     </ul>
                 </li>

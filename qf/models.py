@@ -24,11 +24,11 @@ class QuimicoFarmaceutico(models.Model):
 
 class Perfil(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='perfil')
-    sexo = models.CharField(max_length=1)
+    sexo = models.CharField(max_length=10)
     rut = models.CharField(max_length=12, unique=True)
     telefono = models.CharField(max_length=15)
     fecha_de_nacimiento = models.DateField()
-    fotou = models.ImageField(upload_to="perfiles")
+    foto = models.ImageField(upload_to='perfiles', blank=True, null=True)
     def __str__(self) -> str:
         return self.usuario.username
     
