@@ -37,7 +37,7 @@
                           {% for i in quimicoSistema %}
                           <tr>
                               <td><input type="checkbox" name="select_row" value="{{ i.user.id }}"></td>
-                              <td><a href="{% url 'perfil' i.user.id %}">{{ i.user.username }}</a></td>
+                              <td><a href="{% url 'perfilQ' i.user.id %}">{{ i.user.username }}</a></td>
                               <td>{{ i.peso }}</td>
                               <td>{{ i.ultimo_qf }}</td>
                               <td>{{ i.ultima_conexion }}</td>

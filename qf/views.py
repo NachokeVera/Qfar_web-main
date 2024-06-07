@@ -109,6 +109,7 @@ def create_quimi_far(request):
         telefono = request.POST.get('telefono')
         fechanac = request.POST.get('fecha_nac')
         titulo = request.POST.get('titulo')
+        foto = request.FILES['foto']
         curriculum = request.POST.get('curriculum')
         numero_registro = request.POST.get('numero_registro')
         horario_disponible = request.POST.get('hora_disponible')
@@ -121,6 +122,7 @@ def create_quimi_far(request):
         perfil = Perfil.objects.create(
              usuario=user,
              sexo =sexo,
+             foto=foto,
              rut = rut,
              telefono =telefono,
              fecha_de_nacimiento = fechanac
@@ -170,7 +172,7 @@ def create_paciente(request):
         perfil = Perfil.objects.create(
              usuario=user,
              sexo =sexo,
-             fotou= foto,
+             foto= foto,
              rut = rut,
              telefono =telefono,
              fecha_de_nacimiento = fechanac

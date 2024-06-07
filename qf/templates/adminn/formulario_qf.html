@@ -15,8 +15,8 @@
                     <label class="form-label">Subir Fotografía</label>
                     <div class="foto-qf m-auto">
                         <img src="{% static 'qf/imgs/usuario.png' %}" id="img" class="rounded-circle img-thumbnail" style="height: 200px; width: 200px;" alt="imagen QF"><br>
-                        <input style="display: none;" type="file" name="avatar" id="avatar">
-                        <label for="avatar" class="btn btn-primary mt-3">Cambiar Foto</label>
+                        <input style="display: none;" type="file" name="foto" id="foto">
+                        <label for="foto" class="btn btn-primary mt-3">Cambiar Foto</label>
                     </div>
                 </div>
 
@@ -75,7 +75,7 @@
 
 <script>
     const defaultFile = 'static/qf/imgs/usuario.png' ;
-    const file = document.getElementById('avatar');
+    const file = document.getElementById('foto');
     const img = document.getElementById('img');
 
     file.addEventListener('change', e => {
