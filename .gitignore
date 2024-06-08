@@ -2,3 +2,6 @@ env/
 *.pyc
 *.sqlite3
 __pycache__/
+/ngrok.yml
+/ngrok
+ngrok.exe

@@ -11,6 +11,20 @@ class Paciente(models.Model):
     def __str__(self) -> str:
         return self.user.username
 
+class Especialidad(models.Model):
+    id= models.AutoField(primary_key=True, verbose_name='id de la especialidad')
+    especialidad= models.CharField(max_length=20, verbose_name='nombre de la especialidad', null=False, blank=False)
+
+    def __str__(self) -> str:
+        return self.especialidad
+    
+class AreaMedica(models.Model):
+    id= models.AutoField(primary_key=True, verbose_name='id de la area medica')
+    area_medica= models.CharField(max_length=20, verbose_name='nombre de la area', null=False, blank=False)
+
+    def __str__(self) -> str:
+        return self.area_medica
+
 class QuimicoFarmaceutico(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='quimico_farmaceutico')
     universidad = models.CharField(max_length=60)
@@ -19,6 +33,8 @@ class QuimicoFarmaceutico(models.Model):
     horario_disponible = models.CharField(max_length=60)
     #foto_perfil = models.CharField(max_length=200, unique=True)
     numero_registro = models.CharField(max_length=60)
+    especialidades = models.ManyToManyField(Especialidad, related_name='quimicos_farmaceuticos')
+    area_medica= models.ForeignKey(AreaMedica, on_delete=models.CASCADE,blank=True, null=True)
     def __str__(self) -> str:
         return self.user.username
 
@@ -32,8 +48,9 @@ class Perfil(models.Model):
     def __str__(self) -> str:
         return self.usuario.username
     
-class AreaMedica(models.Model):
-    area_medica = models.CharField(max_length=25)
+
+    
+
 
 #Tablas de chat
 
