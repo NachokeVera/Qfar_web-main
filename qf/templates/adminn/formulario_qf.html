@@ -2,19 +2,90 @@
 {% load static %}
 {% block contenido %}
 
-<body> 
-    <h2 class="text-center text-primary mb-5">Datos del Químico</h2>
-    <div class="container mt-10" style="background-color: #ececec; color: black;border-radius: 15px;  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);">
-       
+<body>
+    <h2 class="text-center text-primary mb-5 " style="margin-top: 50px;">Datos del Químico</h2>
+    <div class="container mt-10"
+        style="background-color: #ececec; color: black;border-radius: 0px;  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);">
+
         <form action="{% url 'adminform' %}" method="POST" enctype="multipart/form-data" style="padding:30px 30px 0 0;">
             {% csrf_token %}
-           
+            <div class="row">
+               <div class="col-12 col-lg-4">
+                <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" name="usuario" id="nombre">
+                <label for="rut" class="form-label mt-3">RUT</label>
+                <input type="text" class="form-control" name="rut" id="rut" onblur="formatearRut(this)">
+                <label for="sexo" class="form-label mt-3">Sexo</label>
+                <select class="form-select" name="sexo" id="sexo">
+                    <option value="MASCULINO">Masculino</option>
+                    <option value="FEMENINO">Femenino</option>
+                    <option value="PREFIERO NO ESPECIFICAR">Prefiero no especificar</option>
+                </select>
+                <label for="titu" class="form-label mt-3">Título o Carrera</label>
+                <input type="text" class="form-control" name="titulo" id="titu">
+                <label for="cv" class="form-label mt-3">Especialidad</label><br>
+                {% for x in especialidad %}
+                <input type="checkbox" name="especialidad" value="{{ x.id }}">
+                {{x.especialidad}}<br>
+                {% endfor %}
+                <label for="clave" class="form-label mt-3">Clave</label>
+                <input type="password" class="form-control" name="clave" id="clave">
 
+
+                
+
+              
+
+               </div>
+
+               <div class="col-12 col-lg-4">
+                <label for="fecha_nac" class="form-label">Fecha de Nacimiento</label>
+                <input type="date" class="form-control" name="fecha_nac" id="fecha_nac">
+                <label for="telefono" class="form-label mt-3">Teléfono</label>
+                <input type="text" class="form-control" name="telefono" id="telefono">
+                <label for="email" class="form-label mt-3">Email</label>
+                <input type="email" class="form-control" name="email" id="email">
+                <label for="uni" class="form-label mt-3">Universidad</label>
+                    <input type="text" class="form-control" name="universidad" id="uni">
+                    <div style="margin: 10px;" class="col-md-12">
+                        seleccionar coleccion
+                        <select name="aream" id="listaTienda">
+                            {% for x in aream %}
+                            <option value="{{ x.id }}">{{ x.area_medica }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label for="confirmar_clave" class="form-label mt-3">Confirmar Clave</label>
+                    <input type="password" class="form-control" name="confirmar_clave" id="confirmar_clave">
+               </div>
+
+               <div class="col-12 col-lg-4">
+                <label for="nombre" class="form-label ">Region</label>
+                <input type="text" class="form-control" name="Region" id="nombre">
+                <label for="nombre" class="form-label mt-3">Povincia</label>
+                <input type="text" class="form-control" name="Povincia" id="nombre">
+                <label for="nombre" class="form-label mt-3">Comuna</label>
+                <input type="text" class="form-control" name="Comuna" id="nombre">
+                <div style="margin: 10px;" class="col-md-12">
+                    Horario Disponible
+                    <select name="hora_disponible" id="listaTienda">
+                       
+                        <option value="08:00 - 16:00">08:00 - 16:00</option>
+                        <option value="08:00 - 16:00">16:00 - 00:00</option>
+                        <option value="08:00 - 16:00">00:00 - 08:00</option>
+                        
+                    </select>
+                </div>
+               </div>
+            </div>
+
+<!--
             <div class="row">
                 <div class="col-12 col-lg-4 mb-4 text-center" style="margin-top:100px ;">
                     <label class="form-label">Subir Fotografía</label>
                     <div class="foto-qf m-auto">
-                        <img src="{% static 'qf/imgs/usuario.png' %}" id="img" class="rounded-circle img-thumbnail" style="height: 200px; width: 200px;" alt="imagen QF"><br>
+                        <img src="{% static 'qf/imgs/usuario.png' %}" id="img" class="rounded-circle img-thumbnail"
+                            style="height: 200px; width: 200px;" alt="imagen QF"><br>
                         <input style="display: none;" type="file" name="foto" id="foto">
                         <label for="foto" class="btn btn-primary mt-3">Cambiar Foto</label>
                     </div>
@@ -23,58 +94,82 @@
                 <div class="col-12 col-lg-4 mb-4">
                     <label for="nombre" class="form-label">Nombre</label>
                     <input type="text" class="form-control" name="usuario" id="nombre">
-                    
+
                     <label for="rut" class="form-label mt-3">RUT</label>
                     <input type="text" class="form-control" name="rut" id="rut" onblur="formatearRut(this)">
-                    
+
                     <label for="fecha_nac" class="form-label mt-3">Fecha de Nacimiento</label>
                     <input type="date" class="form-control" name="fecha_nac" id="fecha_nac">
-                    
+
                     <label for="sexo" class="form-label mt-3">Sexo</label>
                     <select class="form-select" name="sexo" id="sexo">
                         <option value="MASCULINO">Masculino</option>
                         <option value="FEMENINO">Femenino</option>
                         <option value="PREFIERO NO ESPECIFICAR">Prefiero no especificar</option>
                     </select>
-                    
+
                     <label for="numre" class="form-label mt-3">Número de Registro</label>
                     <input type="text" class="form-control" name="numero_registro" id="numre">
-                    
+
                     <label for="cv" class="form-label mt-3">Currículum</label>
                     <input type="text" class="form-control" name="curriculum" id="cv">
+
+                    <label for="cv" class="form-label mt-3">Especialidad</label><br>
+                    {% for x in especialidad %}
+                    <input type="checkbox" name="especialidad" value="{{ x.id }}">
+                    {{x.especialidad}}<br>
+                    {% endfor %}
+
+                    <div style="margin: 10px;" class="col-md-12">
+                        seleccionar coleccion
+                        <select name="aream" id="listaTienda">
+                            {% for x in aream %}
+                            <option value="{{ x.id }}">{{ x.area_medica }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
 
                 <div class="col-12 col-lg-4 mb-4">
                     <label for="telefono" class="form-label">Teléfono</label>
                     <input type="text" class="form-control" name="telefono" id="telefono">
-                    
+
                     <label for="email" class="form-label mt-3">Email</label>
                     <input type="email" class="form-control" name="email" id="email">
-                    
+
                     <label for="clave" class="form-label mt-3">Clave</label>
                     <input type="password" class="form-control" name="clave" id="clave">
-                    
+
                     <label for="confirmar_clave" class="form-label mt-3">Confirmar Clave</label>
                     <input type="password" class="form-control" name="confirmar_clave" id="confirmar_clave">
+
                     
-                    <label for="hordis" class="form-label mt-3">Horario Disponible</label>
-                    <input type="text" class="form-control" name="hora_disponible" id="hordis">
-                    
+                    <div style="margin: 10px;" class="col-md-12">
+                        Horario Disponible
+                        <select name="hora_disponible" id="listaTienda">
+                           
+                            <option value="08:00 - 16:00">08:00 - 16:00</option>
+                            <option value="08:00 - 16:00">16:00 - 00:00</option>
+                            <option value="08:00 - 16:00">00:00 - 08:00</option>
+                            
+                        </select>
+                    </div>
+
                     <label for="uni" class="form-label mt-3">Universidad</label>
                     <input type="text" class="form-control" name="universidad" id="uni">
-                    
+
                     <label for="titu" class="form-label mt-3">Título o Carrera</label>
                     <input type="text" class="form-control" name="titulo" id="titu">
-                    
+
                     <button type="submit" class="btn btn-success w-100 mt-4">Guardar</button>
                 </div>
-            </div>
+            </div>-->
         </form>
     </div>
 </body>
 
 <script>
-    const defaultFile = 'static/qf/imgs/usuario.png' ;
+    const defaultFile = 'static/qf/imgs/usuario.png';
     const file = document.getElementById('foto');
     const img = document.getElementById('img');
 
@@ -94,8 +189,6 @@
     body {
         background-color: rgb(218, 218, 218);
     }
-    
-    
 </style>
 
 {% endblock %}

@@ -10,7 +10,7 @@ import os
 
 
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Paciente, QuimicoFarmaceutico, UsusariosChat, Chat, Perfil
+from .models import Paciente, QuimicoFarmaceutico, UsusariosChat, Chat, Perfil,Especialidad,AreaMedica
 from .connectycube import create_session,register_user_connecticube,search_user,create_dialog
 
 # Create your views here.
@@ -63,6 +63,13 @@ def nuevo_paciente(request):
     context = {'quimicoSistema': quimico }
     return render(request,'adminn/nuevo_paciente.html',context)
 
+def nuevo_quimico(request):
+    especialidades=Especialidad.objects.all()
+    aream=AreaMedica.objects.all()
+    context = {'especialidad': especialidades,
+               'aream': aream, }
+    return render(request,'adminn/formulario_qf.html',context)
+
 def home(request):
     return render(request,'qf/home.html')
 
@@ -99,6 +106,7 @@ def cerrarsesion(request):
     return redirect('login')
 
 def create_quimi_far(request):
+  
     if request.method == 'POST':
         username = request.POST.get('usuario')
         email = request.POST.get('email')
@@ -113,6 +121,12 @@ def create_quimi_far(request):
         curriculum = request.POST.get('curriculum')
         numero_registro = request.POST.get('numero_registro')
         horario_disponible = request.POST.get('hora_disponible')
+        idaream = request.POST['aream']
+        especialidades_ids = request.POST.getlist('especialidad')
+    
+    
+
+        area_medica = AreaMedica.objects.get(id=idaream)
 
         # Crear el usuario de Django
         user = User.objects.create_user(username, email, password)
@@ -134,8 +148,13 @@ def create_quimi_far(request):
             titulo=titulo,
             curriculum=curriculum,
             numero_registro=numero_registro,
-            horario_disponible=horario_disponible
+            horario_disponible=horario_disponible,
+            area_medica=area_medica
         )
+        for ides in especialidades_ids:
+            especialidad = Especialidad.objects.get(id=ides)
+            quimico_farmaceutico.especialidades.add(especialidad)
+
         quimico_farmaceutico.save()
         perfil.save()
 

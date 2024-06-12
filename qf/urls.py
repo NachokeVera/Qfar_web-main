@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import home,nuevo_paciente,inicio_admin,create_paciente,perfil,perfilQ, quimicos_admin, index,login,listado,cerrarsesion,create_quimi_far,register,pacientes_admin,paciente_index, paciente_espera,quimico_chat,lista_pacientes_espera
+from .views import home,nuevo_paciente,inicio_admin,create_paciente,perfil,nuevo_quimico,perfilQ, quimicos_admin, index,login,listado,cerrarsesion,create_quimi_far,register,pacientes_admin,paciente_index, paciente_espera,quimico_chat,lista_pacientes_espera
 
 urlpatterns = [
     path("index", index, name="index"),
@@ -15,6 +15,7 @@ urlpatterns = [
     path('listado', listado, name='listado'),
     path('cerrarsesion', cerrarsesion, name='cerrarsesion'),
     path('nuevo_paciente', nuevo_paciente, name='nuevo_paciente'),
+    path('nuevo_quimico', nuevo_quimico, name='nuevo_quimico'),
     path('pacientes_admin', pacientes_admin, name='pacientes_admin'),
     path('quimicos_admin', quimicos_admin, name='quimicos_admin'),
     #Ruta para registrar un quimico farmaceutico

@@ -12,6 +12,7 @@
     padding-top: 20px;
     transition: 0.3s;
     border-right: 5px solid  #368bd8;
+    
 }
 .img-logos{
 height:40px ;
@@ -32,6 +33,11 @@ width:40px ;
     height: 60px;
     color: white;
     /*color negro*/
+    position: fixed;
+    top: 0;
+    width: 100%;
+   
+    z-index: 100; /* Asegúrate de que esté por encima de otros elementos */
 }
 .imgUsuario{
     height:200px ;
