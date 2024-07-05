@@ -25,20 +25,22 @@
                       <thead >
                           <tr>
                               <th></th>
-                              <th width="25%">Nombre</th>
-                              <th width="25%">Conexiones</th>
-                              <th width="25%">Último QF que lo atendió</th>
-                              <th width="25%">Última conexión</th>
+                              <th >Nombre</th>
+                              <th >Conexiones</th>
+                              <th >Último QF que lo atendió</th>
+                              <th >Última conexión</th>
+                              <th >Acciones</th>
                           </tr>
                       </thead>
                       <tbody>
                           {% for i in UsuarioSistema %}
                           <tr>
-                              <td><input type="checkbox" name="select_row" value="{{ i.user.id }}"></td>
-                              <td><a href="{% url 'perfil' i.user.id %}">{{ i.user.username }}</a></td>
+                              <td><input type="checkbox" name="select_row" value="{{ i.id }}"></td>
+                              <td><a href="{% url 'perfil' i.id %}">{{ i.usuario.nombre_usuario }}</a></td>
                               <td>{{ i.peso }}</td>
                               <td>{{ i.ultimo_qf }}</td>
                               <td>{{ i.ultima_conexion }}</td>
+                              <td><a href="{% url 'modificarP' i.usuario.id %}">Editar</a></td>
                           </tr>
                           {% endfor %}
                       </tbody>

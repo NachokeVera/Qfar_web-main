@@ -4,10 +4,15 @@
 <div style="text-align: center;margin: 100px;">
     <div class="row" style="border: 5px solid #368bd8;background-color: #242424;border-radius: 15px;">
         <div style="color: white;" class="col-4">
-            <img src="{{ perfilP.foto.url }}" class="imgUsuario" alt="usuario"><br>
+            {% if paciente.usuario.foto %}
+            <img src="{{ paciente.usuario.foto.url }}" class="imgUsuario" alt="usuario"><br>
+        {% else %}
+            <img src="{% static 'qf/imgs/usuario.png' %}" class="imgUsuario" alt="Foto predeterminada" />
+        {% endif %}
+           
             <div class="atributo">
 
-                {{perfil.user.username}} {{perfil.user.last_name}}
+                {{paciente.usuario.nombre_usuario}} 
             </div>
 
         </div>
@@ -15,15 +20,15 @@
 
             <div class="atributo">
                 <b>RUT</b><br>
-                {{perfilP.rut}}
+                {{paciente.usuario.rut}}
             </div>
             <div class="atributo">
                 <b>Email</b> <br>
-                {{perfil.user.email}}
+                {{paciente.usuario.correo}}
             </div>
             <div class="atributo">
                 <b>Sexo</b> <br>
-                {{perfilP.sexo}}
+                {{paciente.usuario.sexo}}
             </div>
 
             <div class="atributo">
@@ -38,18 +43,18 @@
 
 
             <div class="atributo">
-                <b>Fecha de nacimiento</b> <br> {{perfilP.fecha_de_nacimiento}}
+                <b>Fecha de nacimiento</b> <br> {{paciente.usuario.fecha_de_nacimiento}}
             </div>
 
             <div class="atributo">
-                <b>Telefono</b><br> {{perfilP.telefono}}
+                <b>Telefono</b><br> {{paciente.usuario.telefono}}
             </div>
 
             <div class="atributo">
-                <b>Cesfam</b><br> {{perfil.cesfam}}
+                <b>Cesfam</b><br> {{paciente.cesfam}}
             </div>
             <div class="atributo">
-                <b> Peso</b> <br>{{perfil.peso}} kg
+                <b> Peso</b> <br>{{paciente.peso}} kg
             </div>
 
 

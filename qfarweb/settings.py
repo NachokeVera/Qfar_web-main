@@ -28,7 +28,9 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '10.0.2.2', 
     '127.0.0.1',
-    'f3ba-190-196-180-153.ngrok-free.app' 
+    'f3ba-190-196-180-153.ngrok-free.app',
+    '192.168.0.8',
+    'localhost'
 ]
 
 
@@ -44,12 +46,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'apiqfar',    
+    'apiqfar',
+    'corsheaders',    
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -57,7 +61,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
 ]
-
+CORS_ALLOW_ALL_ORIGINS = True 
 ROOT_URLCONF = 'qfarweb.urls'
 
 TEMPLATES = [
@@ -75,6 +79,8 @@ TEMPLATES = [
         },
     },
 ]
+
+
 
 WSGI_APPLICATION = 'qfarweb.wsgi.application'
 
@@ -118,7 +124,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Santiago'
 
 USE_I18N = True
 

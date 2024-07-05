@@ -23,7 +23,9 @@ width:40px ;
     padding: 0;
 }
 
-
+.error {
+    border: 2px solid red;
+}
 .areamenu ul li {
     position: relative;
 }
@@ -32,8 +34,8 @@ width:40px ;
     background-color: #242424;
     height: 60px;
     color: white;
-    /*color negro*/
-    position: fixed;
+    /*color negro
+    position: fixed;*/
     top: 0;
     width: 100%;
    

@@ -6,7 +6,7 @@
      <h2 class="text-center text-primary " style="margin-top: 20px;" >Datos del Paciente</h2>
     <div class="container mt-10" style="background-color: #242424; color: white;border-radius: 15px; border: 3px solid  #368bd8;">
        
-        <form action="{% url 'createpaciente' %}" method="POST" enctype="multipart/form-data" style="padding:30px 30px 0 0;">
+        <form action="{% url 'update_paciente' %}" method="POST" enctype="multipart/form-data" style="padding:30px 30px 0 0;">
             {% csrf_token %}
            
 
@@ -14,50 +14,90 @@
                 <div class="col-12 col-lg-4 mb-4 text-center" style="margin-top:50px ;">
                     <label class="form-label">Subir Fotografía</label>
                     <div class="foto-qf m-auto">
-                        <img src="{% static 'qf/imgs/usuario.png' %}" id="img" class="rounded-circle img-thumbnail" style="height: 200px; width: 200px;" alt="imagen QF"><br>
+                        {% if datos.foto %}
+                        <img src="{{ datos.foto.url }}" id="img" class="imgUsuario" alt="usuario"><br>
+                    {% else %}
+                    <img src="{% static 'qf/imgs/usuario.png' %}" id="img" class="rounded-circle img-thumbnail" style="height: 200px; width: 200px;" alt="imagen QF"><br>
+                    {% endif %}
+                       
                         <input style="display: none;" type="file" name="foto" id="foto">
                         <label for="foto" class="btn btn-primary mt-3">Cambiar Foto</label>
                     </div>
                 </div>
                 <div class="col-12 col-lg-4 mb-4">
                     <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" name="usuario" id="nombre">
+                    <input type="text" class="form-control" name="nombre" id="nombre" value="{{ datos.nombre_usuario }}">
                     
                     <label for="rut" class="form-label mt-3">RUT</label>
-                    <input type="text" class="form-control" name="rut" id="rut" onblur="formatearRut(this)">
+                    <input type="text" class="form-control" name="rut" id="rut" value="{{ datos.rut }}">
                     
                     <label for="fecha_nac" class="form-label mt-3">Fecha de Nacimiento</label>
-                    <input type="date" class="form-control" name="fecha_nac" id="fecha_nac">
+                    <input type="date" class="form-control" name="fecha_nac" id="fecha_nac" value="{{ datos.fecha_de_nacimiento }}">
                     
                     <label for="sexo" class="form-label mt-3">Sexo</label>
-                    <select class="form-select" name="sexo" id="sexo">
+                    <select class="form-select" name="sexo" id="sexo" >
                         <option value="MASCULINO">Masculino</option>
                         <option value="FEMENINO">Femenino</option>
                         <option value="PREFIERO NO ESPECIFICAR">Prefiero no especificar</option>
                     </select>
                     
                     <label for="cesfam" class="form-label mt-3">CESFAM</label>
-                    <input type="text" class="form-control" name="cesfam" id="cesfam">
+                    <input type="text" class="form-control" name="cesfam" id="cesfam" value="{{ paciente.cesfam }}">
                 </div>
                 <div class="col-12 col-lg-4 mb-4">
                     <label for="telefono" class="form-label">Teléfono</label>
-                    <input type="text" class="form-control" name="telefono" id="telefono">
+                    <input type="text" class="form-control" name="telefono" id="telefono" value="{{ datos.telefono }}">
                     
                     <label for="email" class="form-label mt-3">Email</label>
-                    <input type="email" class="form-control" name="email" id="email">
+                    <input type="email" class="form-control" name="email" id="email" value="{{ datos.correo }}">
                     
                     <label for="clave" class="form-label mt-3">Clave</label>
-                    <input type="password" class="form-control" name="clave" id="clave">
+                    <input type="password" class="form-control" name="clave" id="clave" value="{{ datos.clave }}">
                     
                     <label for="confirmar_clave" class="form-label mt-3">Confirmar Clave</label>
                     <input type="password" class="form-control" name="confirmar_clave" id="confirmar_clave">
                     
                     <label for="peso" class="form-label mt-3">Peso</label>
-                    <input type="text" class="form-control" name="peso" id="peso">
+                    <input type="text" class="form-control" name="peso" id="peso" value="{{ paciente.peso }}">
                     
                     <button type="submit" class="btn btn-success w-100 mt-4">Guardar</button>
                 </div>
             </div>
+            <div class="row">
+                <h2 class="text-center text-primary " style="margin-top: 20px;" >Antecedentes Medicos</h2>
+                {% for x in enfermedad %}
+                <div class="col-12">
+
+                    <div >
+                        patologia
+                        <select name="patologia" id="listaTienda">
+                            {% for p in pato %}
+                        {% if p.id == x.pato.id %}
+                          <option value="{{p.id}}" selected>{{p.especialidad}}</option>
+                         {% else %}
+                          <option value="{{p.id}}" >{{p.especialidad}}</option>
+                        {% endif %}
+                       {% endfor %}
+                        </select>
+
+                       
+                    </div>
+                    <label for="" class="form-label">Enfermedad</label>
+                    <input type="text" class="form-control" name="Enfermedad" id="" value="{{ x.nombre }}">
+                    
+                    <label for="" class="form-label mt-3">medicamento</label>
+                    <input  class="form-control" name="" id="" value="{{ x.medicamentos }}">
+                    
+                    <label for="" class="form-label mt-3">Clave</label>
+                    <input type="password" class="form-control" name="" id="" value="{{ datos.clave }}">
+
+                </div>
+                {% endfor %}
+               
+
+            </div>
+
+
         </form>
     </div>
 </body>

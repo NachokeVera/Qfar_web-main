@@ -180,7 +180,7 @@
                             <tbody>
                                 {% for i in UsuarioSistema %}
                                 <tr>
-                                    <td><a href="{% url 'perfil' i.user.id %}"> {{i.user.username}}</a></td>
+                                    <td><a href="{% url 'perfil' i.id %}"> {{i.usuario.nombre_usuario}}</a></td>
                                     <td>{{i.peso}} </td>
                                     <td></td>
                                     <td></td>

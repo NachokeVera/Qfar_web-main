@@ -1,7 +1,7 @@
 {% extends 'adminn/base.html' %}
 {% load static %}
 {% block contenido %}
-<div style="background-color: aqua;text-align: center;margin: 150px; color: white;">
+<div style="background-color: #242424;text-align: center;margin: 150px; color: white;">
     <div class="row" style="border: 5px solid #368bd8;background-color: #242424;border-radius: 15px;margin-top: 20px;">
         <div style="" class="col-4">
             <img src="{{ perfilQ.foto.url }}" class="imgUsuario" alt="usuario"><br>
@@ -70,6 +70,20 @@
         
         </div>
 
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <h3>Especialidades:</h3>
+            <ul>
+                {% for x in espe %}
+                    <li>{{ x.especialidad }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-6">
+            <h3>Area medica:</h3>
+            {{perfil.area_medica.area_medica}} 
+        </div>
     </div>
     
 </div>

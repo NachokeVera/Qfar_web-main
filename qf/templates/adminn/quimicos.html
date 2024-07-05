@@ -15,7 +15,7 @@
               <input type="text" class="caja-buscar" placeholder="Buscar por nombre" id="input_qf_nombre">
               <input type="text" class="caja-buscar" placeholder="Buscar por registro" id="input_qf_registro">
               <button class="btn-agregar"><a href="{% url 'nuevo_paciente' %}">Agregar qf</a></button>
-              <button type="button" class="btn-eliminar" >Deshabilitar</button>
+              <button type="button" class="btn-eliminar" style="margin-left: 10px;" >Deshabilitar</button>
           </div>
       </div>
       <div id="no-more-tables">
@@ -36,13 +36,18 @@
                       <tbody>
                           {% for i in quimicoSistema %}
                           <tr>
-                              <td><input type="checkbox" name="select_row" value="{{ i.user.id }}"></td>
+                              <td><input type="checkbox" name="ids_usuarios" value="{{ i.user.id }}"></td>
                               <td><a href="{% url 'perfilQ' i.user.id %}">{{ i.user.username }}</a></td>
-                              <td>{{ i.peso }}</td>
-                              <td>{{ i.ultimo_qf }}</td>
+                              <td>{{ i.especialidad}}</td>
+                              <td>{{ i.user.last_login }}</td>
                               <td>{{ i.ultima_conexion }}</td>
-                              <td>{{ i.ultima_conexion }}</td>
-                              <td>{{ i.ultima_conexion }}</td>
+                              <td>{{ i.calificacion }}</td>
+                              {% if i.estado == 0 %}
+                              <td><i class="fa-solid fa-circle" style="color: #28f924;"></i></td>
+                              {% else %}
+                              <td><i class="fa-solid fa-circle" style="color: #f00909;"></i></td>
+
+                              {% endif%}
                           </tr>
                           {% endfor %}
                       </tbody>
@@ -75,6 +80,7 @@
         
         align-items: center;
     }
+    
 
     .search-buttons {
       margin-left: 100px;
@@ -113,7 +119,7 @@
 
     th, td {
         padding: 10px;
-        text-align: left;
+        text-align: center;
         border-bottom: 1px solid #b6b5b5;
     }
 

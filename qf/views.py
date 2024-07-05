@@ -10,7 +10,7 @@ import os
 
 
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Paciente, QuimicoFarmaceutico, UsusariosChat, Chat, Perfil,Especialidad,AreaMedica
+from .models import Paciente, QuimicoFarmaceutico, UsusariosChat, Chat, Perfil,Especialidad,AreaMedica,Usuario,Enfermedad
 from .connectycube import create_session,register_user_connecticube,search_user,create_dialog
 
 # Create your views here.
@@ -34,18 +34,20 @@ def inicio_admin(request):
     return render(request,'adminn/inicio.html',context)
 
 def perfil(request,id):
-    paciente=Paciente.objects.get(user__id=id)
-    perfilP=Perfil.objects.get(usuario__id=id)
+    paciente=Paciente.objects.get(id=id)
+  
     
-    context = {'perfil': paciente,
-               'perfilP': perfilP}
+    context = {'paciente': paciente}
     return render(request,'adminn/perfil.html',context)
 def perfilQ(request,id):
     quimico=QuimicoFarmaceutico.objects.get(user__id=id)
     perfilP=Perfil.objects.get(usuario__id=id)
+    especialidades = quimico.especialidades.all()
     
     context = {'perfil': quimico,
-               'perfilQ': perfilP}
+               'perfilQ': perfilP,
+               'espe': especialidades
+               }
     return render(request,'adminn/perfilQ.html',context)
 
 def pacientes_admin(request):
@@ -55,7 +57,10 @@ def pacientes_admin(request):
 
 def quimicos_admin(request):
     quimico=QuimicoFarmaceutico.objects.all()
-    context = {'quimicoSistema': quimico }
+    
+    context = {'quimicoSistema': quimico,
+               
+                }
     return render(request,'adminn/quimicos.html',context)
 
 def nuevo_paciente(request):
@@ -75,20 +80,29 @@ def home(request):
 
 def login(request):
     if request.method == 'POST':
-        usuario = request.POST.get('usuario')
+        email = request.POST.get('usuario')
         contrasena = request.POST.get('contrasena')
-        user = authenticate(username=usuario, password=contrasena)
-        if user is not None:
-            auth_login(request, user)
-            token = create_session(usuario,contrasena)
-            print(token)
-            request.session['tokenUser'] = token
-            return redirect('paciente_index')
-        else:
-            messages.error(request, 'Usuario o contraseña incorrectos.')
-            return redirect('login')
+
+        try:
+            user = User.objects.get(email=email)
+            user = authenticate(username=user.username, password=contrasena)
+            
+            if user is not None:
+                auth_login(request, user)
+                return redirect('inicio_admin')
+            else:
+                messages.error(request, 'Usuario o contraseña incorrectos.')
+                return redirect('inicio_sesion')
+
+        except User.DoesNotExist:
+            messages.error(request, "El usuario no existe")
+            return redirect('inicio_sesion')
     else:
-        return render(request,'login.html')
+        return redirect('inicio_sesion')
+
+def inicio_sesion(request):
+    logout(request)
+    return render(request, 'login.html')
 
 def listado(request):
     vCorreo = request.user.username
@@ -100,9 +114,10 @@ def listado(request):
     return render(request,'qf/listado.html',contexto)
 
 def cerrarsesion(request):
+    logout(request)
     if 'tokenUser' in request.session:
         del request.session['tokenUser']
-    logout(request)
+  
     return redirect('login')
 
 def create_quimi_far(request):
@@ -110,7 +125,7 @@ def create_quimi_far(request):
     if request.method == 'POST':
         username = request.POST.get('usuario')
         email = request.POST.get('email')
-        password = request.POST.get('contrasena')
+        password = request.POST.get('clave')
         universidad = request.POST.get('universidad')
         sexo = request.POST.get('sexo')
         rut = request.POST.get('rut')
@@ -131,6 +146,7 @@ def create_quimi_far(request):
         # Crear el usuario de Django
         user = User.objects.create_user(username, email, password)
         user.save()
+        
 
         # Crear el objeto QuimicoFarmaceutico relacionado
         perfil = Perfil.objects.create(
@@ -186,28 +202,32 @@ def create_paciente(request):
         # Crear el usuario de Django
         user = User.objects.create_user(username, email, password)
         user.save()
-
-        # Crear el objeto QuimicoFarmaceutico relacionado
-        perfil = Perfil.objects.create(
-             usuario=user,
-             sexo =sexo,
-             foto= foto,
-             rut = rut,
-             telefono =telefono,
-             fecha_de_nacimiento = fechanac
+        usuario=Usuario.objects.create(
+            nombre_usuario=username,
+            correo=email,
+            clave=password,
+            sexo=sexo,
+            rut=rut,
+            telefono=telefono,
+            fecha_de_nacimiento=fechanac,
+            foto=foto
 
         )
+
+        # Crear el objeto QuimicoFarmaceutico relacionado
+       
         paciente = Paciente.objects.create(
-            user=user,
+           
             cesfam=cesfam,
             sintomas=sintomas,
-            peso=peso
+            peso=peso,
+            usuario=usuario
 
            
         )
         paciente.save()
-        perfil.save()
-        auth_login(request, user) 
+        usuario.save()
+        
         token = create_session()
         connectycube_user = register_user_connecticube(token, username, email, password)
         print(token)
@@ -337,3 +357,44 @@ def quimico_chat(request, user_id):
         'dialogId': dialogID,
     }
     return render(request, 'qf/chat_qf.html',context)
+
+def modificarP(request, id):
+    usuario = Usuario.objects.get(id=id)
+    paciente = Paciente.objects.get(usuario=usuario)
+    patologia = Especialidad.objects.all()
+    enfermedades= Enfermedad.objects.filter(usuario=usuario)
+    
+   
+    contexto={
+        "datos":usuario,
+       "paciente":paciente,
+       "pato":patologia,
+        "enfermedad":enfermedades,
+    }
+    return render(request, 'adminn/nuevo_paciente.html', contexto)
+
+def update_paciente(request):
+    editnombre = request.POST['nombre']
+    editcorreo = request.POST['email']
+    editrut = request.POST['rut']
+    edittelefono = request.POST['telefono']
+    editfecha = request.POST['fecha_nac']
+    editsexo = request.POST['sexo']
+    editcesfam = request.POST['cesfam']
+    editfoto = request.FILES.get('foto', '')
+   
+    usuario = Usuario.objects.get(rut=editrut)
+    usuario.nombre_usuario = editnombre
+    usuario.telefono = edittelefono
+    usuario.correo = editcorreo
+    usuario.sexo = editsexo
+    usuario.fecha_de_nacimiento = editfecha
+    usuario.rut= editrut
+    
+    
+    if editfoto != '':
+        usuario.foto = editfoto
+
+    usuario.save()
+   
+    return redirect('pacientes_admin')
